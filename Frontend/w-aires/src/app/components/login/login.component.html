@@ -8,14 +8,14 @@
                 
                 <h2 class="fw-bold text-center py-5">Bienvenido</h2>
 
-                <form action="#">
+                <form autocomplete="on" (submit)="login()" >
                     <div class="mb-4">
                         <label for="email" class="form-label">Correo electrónico</label>
-                        <input type="email" class="form-control" name="email">
+                        <input type="email" class="form-control" name="email" [(ngModel)]="email">
                     </div>
                     <div class="mb-4">
                         <label for="Password" class="form-label">Password</label>
-                        <input type="Password" class="form-control" name="Password">
+                        <input type="Password" class="form-control" name="Password" [(ngModel)]="password">
                     </div>
                     <div class="d-grid">
                         <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
