@@ -1,5 +1,5 @@
 export class Login {
 
-    constructor(public username:String, public contrasena:String){
+    constructor(public username:String, public password:String){
     }
 }

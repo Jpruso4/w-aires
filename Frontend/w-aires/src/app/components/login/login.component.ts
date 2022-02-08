@@ -18,8 +18,9 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    let user = new Login(this.username,this.password);
-    return this.httpClient.post('http://localhost:8090/auth/authenticate',user).subscribe(
+    console.log(this.password);
+    let user = new Login(this.username, this.password);
+    return this.httpClient.post('http://localhost:8090/w-aires/api/auth/authenticate',user).subscribe(
       (response)=>{console.log(response)}
     )
   }
