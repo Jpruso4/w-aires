@@ -10,7 +10,7 @@ import { Login } from 'src/app/models/login.model';
 })
 export class LoginComponent implements OnInit {
 
-  email:string="";
+  username:string="";
   password:string="";
   constructor(private router: Router,private httpClient: HttpClient) { }
 
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    let user = new Login(this.email,this.password);
+    let user = new Login(this.username,this.password);
     return this.httpClient.post('http://localhost:8090/auth/authenticate',user).subscribe(
       (response)=>{console.log(response)}
     )
