@@ -17,17 +17,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class AuthController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+    private final WairesUserDetailsService wairesUserDetailsService;
+    private final JWTUtil jwtUtil;
 
     @Autowired
-    private WairesUserDetailsService wairesUserDetailsService;
-
-    @Autowired
-    private JWTUtil jwtUtil;
+    public AuthController(AuthenticationManager authenticationManager, WairesUserDetailsService wairesUserDetailsService, JWTUtil jwtUtil) {
+        this.authenticationManager = authenticationManager;
+        this.wairesUserDetailsService = wairesUserDetailsService;
+        this.jwtUtil = jwtUtil;
+    }
 
     @PostMapping("/authenticate")
-    @CrossOrigin
     public ResponseEntity<AuthenticationResponse> createToken(@RequestBody AuthenticationRequest request){
 
         try{

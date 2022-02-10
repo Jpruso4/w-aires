@@ -1,1 +1,215 @@
 <app-navbar-privado></app-navbar-privado>
+<div class="container">
+  <br />
+  <div class="row">
+    <div class="col-md-4">
+      <h3><strong>Clientes</strong></h3>
+    </div>
+    <div class="col-md-4"></div>
+    <div style="text-align: right" class="col-md-4 ml-auto">
+      <button
+        style="
+          align-content: flex-start;
+          margin-bottom: 5px;
+          border-radius: 17px;
+        "
+        type="button"
+        class="btn btn-success"
+        (click)="openModalCreate(crearClienteModal)"
+      >
+        <i class="fas fa-user-plus"></i>
+      </button>
+    </div>
+  </div>
+  <input
+    class="form-control"
+    id="txtFilter"
+    type="text"
+    placeholder="Search.."
+    style="border-radius: 15px"
+  />
+  <table class="table table-hover" style="margin-top: 10px">
+    <thead>
+      <th style="text-align: center; background-color: black; color: white">
+        First
+      </th>
+      <th style="text-align: center; background-color: black; color: white">
+        Last
+      </th>
+      <th style="text-align: center; background-color: black; color: white">
+        Acciones
+      </th>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align: center">Hola</td>
+        <td style="text-align: center">Probando</td>
+        <td style="text-align: center">
+          <a>
+            <button
+              style="border-radius: 17px; margin: 2px"
+              type="button"
+              class="btn btn-warning"
+              (click)="openModalEdit(editarClienteModal)"
+            >
+              <i class="fas fa-pen"></i>
+            </button>
+          </a>
+          <a>
+            <button
+              style="border-radius: 17px; margin: 2px"
+              type="button"
+              class="btn btn-danger"
+              (click)="eliminarCliente()"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align: center">Hola</td>
+        <td style="text-align: center">Probando</td>
+        <td style="text-align: center">
+          <a>
+            <button
+              style="border-radius: 17px; margin: 2px"
+              type="button"
+              class="btn btn-warning"
+            >
+              <i class="fas fa-pen"></i>
+            </button>
+          </a>
+          <a>
+            <button
+              style="border-radius: 17px; margin: 2px"
+              type="button"
+              class="btn btn-danger"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #crearClienteModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title"><strong>Crear Cliente</strong></h5>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <label style="text-align: center; color: red" class="form-text"
+      >Todos los campos con (*) son obligatorios.</label
+    >
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            placeholder="Enter email"
+          />
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="exampleInputPassword1"
+            placeholder="Password"
+          />
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        style="border-radius: 17px"
+        data-bs-dismiss="modal"
+        (click)="cancelModal()"
+      >
+        <i class="fas fa-ban"></i>
+      </button>
+      <button
+        type="button"
+        style="border-radius: 17px"
+        class="btn btn-success"
+        (click)="crearCliente()"
+      >
+        <i class="fad fa-save"></i>
+      </button>
+    </div>
+</ng-template>
+
+<ng-template #editarClienteModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title"><strong>Crear Cliente</strong></h5>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <label style="text-align: center; color: red" class="form-text"
+      >Todos los campos con (*) son obligatorios.</label
+    >
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            placeholder="Enter email"
+          />
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="exampleInputPassword1"
+            placeholder="Password"
+          />
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        style="border-radius: 17px"
+        data-bs-dismiss="modal"
+        (click)="cancelModal()"
+      >
+        <i class="fas fa-ban"></i>
+      </button>
+      <button
+        type="button"
+        style="border-radius: 17px"
+        class="btn btn-success"
+        (click)="editarCliente()"
+      >
+        <i class="fad fa-save"></i>
+      </button>
+    </div>
+</ng-template>
+
