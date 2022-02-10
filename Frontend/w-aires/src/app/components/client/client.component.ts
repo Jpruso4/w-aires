@@ -13,18 +13,29 @@ export class ClientComponent implements OnInit {
   token: any;
   respuesta: any;
 
+  idNew: number;
+  emailNew: string;
+  nameNew: string;
+  phoneNew: string;
+  addressNew: string;
+  idClientTypeNew: string;
+  isActiveNew: string;
+
+  idEdit: number;
+  emailEdit: string;
+  nameEdit: string;
+  phoneEdit: string;
+  addressEdit: string;
+  idClientTypeEdit: string;
+  isActiveEdit: string;
+
+
   constructor(private httpClient: HttpClient, public modal:NgbModal) { 
     this.obtenerToken();
   }
 
   ngOnInit(){
-    this.token = "Bearer " + this.token;
-    console.log(this.token);
-    let headers = new HttpHeaders({
-      'Authorization': this.token,
-    });
-    console.log(headers);
-    this.httpClient.get('http://localhost:8090/w-aires/api/client/clients', { headers: headers}).subscribe(
+    this.httpClient.get('http://localhost:8090/w-aires/api/client/clients').subscribe(
       (response) => {
         this.clients = response
         console.log(this.clients);
@@ -62,9 +73,9 @@ export class ClientComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-          this.httpClient.post('http://localhost:8090/w-aires/api/client/create', this.token).subscribe((response) =>{
+          this.httpClient.post('http://localhost:8090/w-aires/api/client/create', this.mapperModeloClienteAgregar()).subscribe((response) =>{
             this.respuesta = response;
-            if(this.respuesta.body){
+            if(this.respuesta){
               Swal.fire(
                 'Registro con exito',
                 'El Registro se ha hecho con exito',
@@ -97,9 +108,10 @@ export class ClientComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-          this.httpClient.put('http://localhost:8090/w-aires/api/client/modified', this.token).subscribe((response) =>{
+          this.httpClient.put('http://localhost:8090/w-aires/api/client/modified', this.mapperModeloClienteEditar()
+          ).subscribe((response) =>{
             this.respuesta = response;
-            if(this.respuesta.body){
+            if(this.respuesta){
               Swal.fire(
                 'Editado con exito',
                 'Se ha editado con exito',
@@ -121,7 +133,7 @@ export class ClientComponent implements OnInit {
     });
   }
 
-  eliminarCliente(){
+  eliminarCliente(id:any){
     Swal.fire({
       title: 'Eliminar Cliente',
       text: '¿Desea eliminar el cliente?',
@@ -131,20 +143,26 @@ export class ClientComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-          this.httpClient.delete('http://localhost:8090/w-aires/api/client/delete/1').subscribe((response) =>{
+          this.httpClient.delete('http://localhost:8090/w-aires/api/client/delete/' + id
+          ).subscribe((response) =>{
             this.respuesta = response;
-            if(this.respuesta.body){
+            console.log(this.respuesta);
+            if(this.respuesta){
               Swal.fire(
                 'Eliminado con exito',
-                'Se ha eliminado el registro con exito',
+                'Se ha eliminado con exito',
               );
               window.location.reload();
-            }  
+            }else{
+              Swal.fire(
+               'Ha fallado la eliminación'
+              );
+            }   
           })
       }else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
           'Eliminar Cancelado',
-          'La eliminación del registro no se ha completado',
+          'La eliminación no se ha completado',
           'error'
         );
       }
@@ -155,7 +173,39 @@ export class ClientComponent implements OnInit {
     this.modal.open(template);
   }
 
-  openModalEdit(template: TemplateRef<any>){
+  openModalEdit(template: TemplateRef<any>, client:any){
+    this.idEdit = client.id;
+    this.emailEdit = client.email;
+    this.nameEdit = client.name;
+    this.phoneEdit = client.phone;
+    this.addressEdit = client.address;
+    this.idClientTypeEdit = client.idClientType;
+    this.isActiveEdit = client.active;
     this.modal.open(template);
+  }
+
+  
+  mapperModeloClienteAgregar(){
+    return{
+      id: this.idNew,
+      name: this.nameNew,
+      phone: this.phoneNew,
+      email: this.emailNew,
+      address: this.addressNew,
+      active: this.isActiveNew,
+      idClientType: this.idClientTypeNew
+    }
+  }
+
+  mapperModeloClienteEditar(){
+    return{
+      id: this.idEdit,
+      name: this.nameEdit,
+      phone: this.phoneEdit,
+      email: this.emailEdit,
+      address: this.addressEdit,
+      active: this.isActiveEdit,
+      idClientType: this.idClientTypeEdit
+    }
   }
 }

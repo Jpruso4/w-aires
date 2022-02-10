@@ -15,7 +15,7 @@ public class Client {
     private String phone;
     private String email;
     private String address;
-    private boolean active;
+    private String active;
     private String idClientType;
 
 }

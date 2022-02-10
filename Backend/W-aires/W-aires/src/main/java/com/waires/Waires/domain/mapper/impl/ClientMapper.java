@@ -19,7 +19,7 @@ public class ClientMapper implements IClientMapper {
         clientDTO.setPhone(client.getPhone());
         clientDTO.setEmail(client.getEmail());
         clientDTO.setAddress(client.getAddress());
-        clientDTO.setActive(client.isActive());
+        clientDTO.setActive(client.getActive());
         clientDTO.setIdClientType(client.getIdClientType());
         return clientDTO;
     }
@@ -32,7 +32,7 @@ public class ClientMapper implements IClientMapper {
         client.setPhone(clientDTO.getPhone());
         client.setEmail(clientDTO.getEmail());
         client.setAddress(clientDTO.getAddress());
-        client.setActive(clientDTO.isActive());
+        client.setActive(clientDTO.getActive());
         client.setIdClientType(clientDTO.getIdClientType());
         return client;
     }

@@ -39,7 +39,7 @@ public class ClientController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ClientDTO> deleteClient(@PathVariable("id") String id){
+    public ResponseEntity<String> deleteClient(@PathVariable("id") String id){
         return new ResponseEntity(clientService.deleteClient(id), HttpStatus.OK);
     }
 }

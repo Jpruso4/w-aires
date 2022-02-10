@@ -30,27 +30,47 @@
   />
   <table class="table table-hover" style="margin-top: 10px">
     <thead>
-      <th style="text-align: center; background-color: black; color: white">
-        First
+      <th style="text-align: center; background-color: #212121; color: white">
+        Id
       </th>
-      <th style="text-align: center; background-color: black; color: white">
-        Last
+      <th style="text-align: center; background-color: #212121; color: white">
+        Nombre
       </th>
-      <th style="text-align: center; background-color: black; color: white">
+      <th style="text-align: center; background-color: #212121; color: white">
+        Correo
+      </th>
+      <th style="text-align: center; background-color: #212121; color: white">
+        Dirección
+      </th>
+      <th style="text-align: center; background-color: #212121; color: white">
+        Celular
+      </th>
+      <th style="text-align: center; background-color: #212121; color: white">
+        Tipo Cliente
+      </th>
+      <th style="text-align: center; background-color: #212121; color: white">
+        Activo
+      </th>
+      <th style="text-align: center; background-color: #212121; color: white">
         Acciones
       </th>
     </thead>
     <tbody>
-      <tr>
-        <td style="text-align: center">Hola</td>
-        <td style="text-align: center">Probando</td>
+      <tr *ngFor="let client of clients">
+        <td style="text-align: center">{{client.id}}</td>
+        <td style="text-align: center">{{client.name}}</td>
+        <td style="text-align: center">{{client.email}}</td>
+        <td style="text-align: center">{{client.address}}</td>
+        <td style="text-align: center">{{client.phone}}</td>
+        <td style="text-align: center">{{client.idClientType}}</td>
+        <td style="text-align: center">{{client.active}}</td>
         <td style="text-align: center">
           <a>
             <button
               style="border-radius: 17px; margin: 2px"
               type="button"
               class="btn btn-warning"
-              (click)="openModalEdit(editarClienteModal)"
+              (click)="openModalEdit(editarClienteModal, client)"
             >
               <i class="fas fa-pen"></i>
             </button>
@@ -60,31 +80,7 @@
               style="border-radius: 17px; margin: 2px"
               type="button"
               class="btn btn-danger"
-              (click)="eliminarCliente()"
-            >
-              <i class="fas fa-trash"></i>
-            </button>
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td style="text-align: center">Hola</td>
-        <td style="text-align: center">Probando</td>
-        <td style="text-align: center">
-          <a>
-            <button
-              style="border-radius: 17px; margin: 2px"
-              type="button"
-              class="btn btn-warning"
-            >
-              <i class="fas fa-pen"></i>
-            </button>
-          </a>
-          <a>
-            <button
-              style="border-radius: 17px; margin: 2px"
-              type="button"
-              class="btn btn-danger"
+              (click)="eliminarCliente(client.id)"
             >
               <i class="fas fa-trash"></i>
             </button>
@@ -113,23 +109,32 @@
     <div class="modal-body">
       <form>
         <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input
-            type="email"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            placeholder="Enter email"
-          />
+          <label for="idNew">Id</label>
+          <input type="number" class="form-control" name="idNew" [(ngModel)]="idNew"/>
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="exampleInputPassword1"
-            placeholder="Password"
-          />
+          <label for="nameNew">Nombre</label>
+          <input type="text" class="form-control" name="nameNew" [(ngModel)]="nameNew" />
+        </div>
+        <div class="form-group">
+          <label for="emailNew">Correo Electronico</label>
+          <input type="email" class="form-control" name="emailNew" [(ngModel)]="emailNew" />
+        </div>
+        <div class="form-group">
+          <label for="phoneNew">Celular</label>
+          <input type="number" class="form-control" name="phoneNew" [(ngModel)]="phoneNew" />
+        </div>
+        <div class="form-group">
+          <label for="addressNew">Direccion</label>
+          <input type="text" class="form-control" name="addressNew" [(ngModel)]="addressNew" />
+        </div>
+        <div class="form-group">
+          <label for="idClientTypeNew">Id tipo Cliente</label>
+          <input type="number" class="form-control" name="idClientTypeNew" [(ngModel)]="idClientTypeNew" />
+        </div>
+        <div class="form-group">
+          <label for="isActiveNew">Activo</label>
+          <input type="text" class="form-control" name="isActiveNew" [(ngModel)]="isActiveNew" />
         </div>
       </form>
     </div>
@@ -156,7 +161,7 @@
 
 <ng-template #editarClienteModal let-modal>
     <div class="modal-header">
-      <h5 class="modal-title"><strong>Crear Cliente</strong></h5>
+      <h5 class="modal-title"><strong>Editar Cliente</strong></h5>
       <button
         type="button"
         class="close"
@@ -172,23 +177,32 @@
     <div class="modal-body">
       <form>
         <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input
-            type="email"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            placeholder="Enter email"
-          />
+          <label for="idEdit">Id</label>
+          <input type="number" class="form-control" name="idEdit" [(ngModel)]="idEdit" readonly="readonly"/>
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="exampleInputPassword1"
-            placeholder="Password"
-          />
+          <label for="nameEdit">Nombre</label>
+          <input type="text" class="form-control" name="nameEdit" [(ngModel)]="nameEdit" />
+        </div>
+        <div class="form-group">
+          <label for="emailEdit">Correo Electronico</label>
+          <input type="email" class="form-control" name="emailEdit" [(ngModel)]="emailEdit" />
+        </div>
+        <div class="form-group">
+          <label for="phoneEdit">Celular</label>
+          <input type="number" class="form-control" name="phoneEdit" [(ngModel)]="phoneEdit" />
+        </div>
+        <div class="form-group">
+          <label for="addressEdit">Direccion</label>
+          <input type="text" class="form-control" name="addressEdit" [(ngModel)]="addressEdit" />
+        </div>
+        <div class="form-group">
+          <label for="idClientTypeEdit">Id tipo Cliente</label>
+          <input type="number" class="form-control" name="idClientTypeEdit" [(ngModel)]="idClientTypeEdit" />
+        </div>
+        <div class="form-group">
+          <label for="isActiveEdit">Activo</label>
+          <input type="text" class="form-control" name="isActiveEdit" [(ngModel)]="isActiveEdit" />
         </div>
       </form>
     </div>
