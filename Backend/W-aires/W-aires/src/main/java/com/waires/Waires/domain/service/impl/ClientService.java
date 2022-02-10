@@ -46,10 +46,10 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public String deleteClient(String id) {
-        clientRepository.findById(id).orElseThrow(() -> new RuntimeException("El cliente no fue encontrado"));
+    public ClientDTO deleteClient(String id) {
+        Client clientDelete = clientRepository.findById(id).orElseThrow(() -> new RuntimeException("El cliente no fue encontrado"));
         clientRepository.deleteById(id);
-        return "El cliente fue eliminado con exito";
+        return clientMapper.mapFromEntity(clientDelete);
     }
 
 }

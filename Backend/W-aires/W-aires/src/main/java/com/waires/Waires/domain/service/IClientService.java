@@ -14,6 +14,6 @@ public interface IClientService {
 
     ClientDTO modifiedClient(ClientDTO clientDTO);
 
-    String deleteClient(String id);
+    ClientDTO deleteClient(String id);
 
 }

@@ -14,7 +14,6 @@ import { FormsModule } from '@angular/forms';
 import { ClientComponent } from './components/client/client.component';
 import { NavbarPrivadoComponent } from './components/navbar-privado/navbar-privado.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,14 +21,14 @@ import { NavbarPrivadoComponent } from './components/navbar-privado/navbar-priva
     LoginComponent,
     NavbarComponent,
     ClientComponent,
-    NavbarPrivadoComponent
+    NavbarPrivadoComponent,
   ],
   imports: [
     BrowserModule,
     NgbModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

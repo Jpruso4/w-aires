@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 
@@ -9,6 +10,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./client.component.css']
 })
 export class ClientComponent implements OnInit {
+
+  search: string;
+
   clients: any;
   token: any;
   respuesta: any;
@@ -135,37 +139,34 @@ export class ClientComponent implements OnInit {
 
   eliminarCliente(id:any){
     Swal.fire({
-      title: 'Eliminar Cliente',
-      text: '¿Desea eliminar el cliente?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Eliminar',
-      cancelButtonText: 'Cancelar'
+      title: '¿Desea eliminar el cliente?',
+      showDenyButton: true,
+      confirmButtonText: 'Sí',
+      denyButtonText: `No`,
     }).then((result) => {
       if (result.isConfirmed) {
-          this.httpClient.delete('http://localhost:8090/w-aires/api/client/delete/' + id
-          ).subscribe((response) =>{
-            this.respuesta = response;
-            console.log(this.respuesta);
-            if(this.respuesta){
-              Swal.fire(
-                'Eliminado con exito',
-                'Se ha eliminado con exito',
-              );
-              window.location.reload();
-            }else{
-              Swal.fire(
-               'Ha fallado la eliminación'
-              );
-            }   
-          })
-      }else if (result.dismiss === Swal.DismissReason.cancel) {
+      this.httpClient.delete('http://localhost:8090/w-aires/api/client/delete/'+ id).subscribe(
+        (response) => {
+          if(response){
+            Swal.fire(
+              'Eliminado con exito',
+              'Se ha eliminado el cliente con exito'
+            )
+            window.location.reload();
+          }
+        },
+        (error) => {
+          Swal.fire(
+            'Proceso fallido',
+            'El cliente no se ha podido elimianr'
+          )});
+      }
+      else if (result.isDenied) {
         Swal.fire(
           'Eliminar Cancelado',
-          'La eliminación no se ha completado',
+          'La eliminación del registro no se ha completado',
           'error'
-        );
-      }
+        )}
     });
   }
 
