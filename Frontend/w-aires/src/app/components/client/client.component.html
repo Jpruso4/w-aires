@@ -28,48 +28,33 @@
   </div>
 
 
-  <table class="table table-hover" style="margin-top: 10px">
-    <thead>
-      <th style="text-align: center; background-color: #212121; color: white">
-        Id
-      </th>
-      <th style="text-align: center; background-color: #212121; color: white">
-        Nombre
-      </th>
-      <th style="text-align: center; background-color: #212121; color: white">
-        Correo
-      </th>
-      <th style="text-align: center; background-color: #212121; color: white">
-        Dirección
-      </th>
-      <th style="text-align: center; background-color: #212121; color: white">
-        Celular
-      </th>
-      <th style="text-align: center; background-color: #212121; color: white">
-        Tipo Cliente
-      </th>
-      <th style="text-align: center; background-color: #212121; color: white">
-        Activo
-      </th>
-      <th style="text-align: center; background-color: #212121; color: white">
-        Acciones
-      </th>
+  <table class="table table-striped bg-light mt-2" style="border-radius: 10px;">
+    <thead style="text-align: center;">
+      <th>Id</th>
+      <th>Nombre</th>
+      <th>Correo</th>
+      <th>Dirección</th>
+      <th>Celular</th>
+      <th>Tipo Cliente</th>
+      <th>Activo</th>
+      <th>Acciones</th>
     </thead>
     <tbody>
-      <tr *ngFor="let client of clients">
-        <td style="text-align: center">{{client.id}}</td>
-        <td style="text-align: center">{{client.name}}</td>
-        <td style="text-align: center">{{client.email}}</td>
-        <td style="text-align: center">{{client.address}}</td>
-        <td style="text-align: center">{{client.phone}}</td>
-        <td style="text-align: center">{{client.idClientType}}</td>
-        <td style="text-align: center">{{client.active}}</td>
-        <td style="text-align: center">
+      <tr *ngFor="let client of clients" style="text-align: center">
+        <td>{{client.id}}</td>
+        <td>{{client.name}}</td>
+        <td>{{client.email}}</td>
+        <td>{{client.address}}</td>
+        <td>{{client.phone}}</td>
+        <td>{{client.idClientType}}</td>
+        <td>{{client.active}}</td>
+        <td>
           <a>
             <button
               style="border-radius: 17px; margin: 2px"
               type="button"
               class="btn btn-warning"
+              aria-label="Editar"
               (click)="openModalEdit(editarClienteModal, client)"
             >
               <i class="fas fa-pen"></i>
