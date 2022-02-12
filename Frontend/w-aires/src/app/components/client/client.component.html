@@ -15,6 +15,7 @@
         "
         type="button"
         class="btn btn-success"
+        title="Crear cliente"
         (click)="openModalCreate(crearClienteModal)"
       >
         <i class="fas fa-user-plus"></i>
@@ -55,6 +56,7 @@
               type="button"
               class="btn btn-warning"
               aria-label="Editar"
+              title="Editar cliente"
               (click)="openModalEdit(editarClienteModal, client)"
             >
               <i class="fas fa-pen"></i>
@@ -65,6 +67,7 @@
               style="border-radius: 17px; margin: 2px"
               type="button"
               class="btn btn-danger"
+              title="Eliminar cliente"
               (click)="eliminarCliente(client.id)"
             >
               <i class="fas fa-trash"></i>
@@ -128,6 +131,7 @@
         type="button"
         class="btn btn-secondary"
         style="border-radius: 17px"
+        title="Cerrar"
         data-bs-dismiss="modal"
         (click)="cancelModal()"
       >
@@ -137,6 +141,7 @@
         type="button"
         style="border-radius: 17px"
         class="btn btn-success"
+        title="Guardar"
         (click)="crearCliente()"
       >
         <i class="fad fa-save"></i>
@@ -196,6 +201,7 @@
         type="button"
         class="btn btn-secondary"
         style="border-radius: 17px"
+        title="Cerrar"
         data-bs-dismiss="modal"
         (click)="cancelModal()"
       >
@@ -205,6 +211,7 @@
         type="submit"
         style="border-radius: 17px"
         class="btn btn-success"
+        title="Guardar"
         (click)="editarCliente()"
       >
         <i class="fad fa-save"></i>
