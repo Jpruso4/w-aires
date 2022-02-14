@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ClientComponent } from './components/client/client.component';
 import { NavbarPrivadoComponent } from './components/navbar-privado/navbar-privado.component';
+import { EmpleadosComponent } from './components/empleados/empleados.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { NavbarPrivadoComponent } from './components/navbar-privado/navbar-priva
     NavbarComponent,
     ClientComponent,
     NavbarPrivadoComponent,
+    EmpleadosComponent,
   ],
   imports: [
     BrowserModule,
