@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { HttpClient} from '@angular/common/http';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 
@@ -11,19 +11,14 @@ import Swal from 'sweetalert2';
 })
 export class ClientComponent implements OnInit {
 
-  search: string;
+  client: FormGroup;
+  submitted:boolean = false;
 
   clients: any;
-  token: any;
-  respuesta: any;
+  typeDocuments: any;
+  typeClient: any;
 
-  idNew: number;
-  emailNew: string;
-  nameNew: string;
-  phoneNew: string;
-  addressNew: string;
-  idClientTypeNew: string;
-  isActiveNew: string;
+  token: any;
 
   idEdit: number;
   emailEdit: string;
@@ -34,7 +29,7 @@ export class ClientComponent implements OnInit {
   isActiveEdit: string;
 
 
-  constructor(private httpClient: HttpClient, public modal:NgbModal) { 
+  constructor(private httpClient: HttpClient, private modal:NgbModal, private formBuilder: FormBuilder) { 
     this.obtenerToken();
   }
 
@@ -46,6 +41,58 @@ export class ClientComponent implements OnInit {
       },
       (error) => console.log("Error mostrando los clientes: " + error.value)
     );
+
+    this.httpClient.get('http://localhost:8090/w-aires/api/client/clients').subscribe(
+      (response) => {
+        this.typeClient = response
+        console.log(this.clients);
+      },
+      (error) => console.log("Error mostrando los clientes: " + error.value)
+    );
+
+    this.httpClient.get('http://localhost:8090/w-aires/api/client/clients').subscribe(
+      (response) => {
+        this.typeDocuments = response
+        console.log(this.clients);
+      },
+      (error) => console.log("Error mostrando los clientes: " + error.value)
+    );
+
+    this.client = this.formBuilder.group({
+      tipoDocumento: ['', Validators.required],
+      numeroDocumento: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{8,10}$")]],
+      nombre: ['', [Validators.required, Validators.pattern("[a-zA-Z0-9 ]{4,50}")]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{7}$")]],
+      cellPhone: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
+      address: ['', Validators.required],
+      typeClient: ['', Validators.required],
+      active: ['', Validators.required]
+    })
+  }
+
+  get f() { return this.client.controls; }
+
+  onSubmit(){
+    this.submitted = true;
+    if(this.client.invalid){
+      return;
+    }
+
+    this.httpClient.post('http://localhost:8090/w-aires/api/client/create', this.mapperModeloClienteAgregar()).subscribe((response) =>{
+      if(response){
+        Swal.fire(
+          'Registro con exito',
+          'El Registro se ha hecho con exito',
+        );
+        window.location.reload();
+      }else{
+          Swal.fire(
+            'Registro fallado, por favor revise los campos'
+          );
+        }
+      }   
+    )
   }
 
   obtenerToken(){
@@ -77,21 +124,7 @@ export class ClientComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-          this.httpClient.post('http://localhost:8090/w-aires/api/client/create', this.mapperModeloClienteAgregar()).subscribe((response) =>{
-            this.respuesta = response;
-            if(this.respuesta){
-              Swal.fire(
-                'Registro con exito',
-                'El Registro se ha hecho con exito',
-              );
-              window.location.reload();
-            }else{
-                Swal.fire(
-                  'Registro fallado, por favor revise los campos'
-                );
-              }
-            }   
-          )
+        this.onSubmit();
       }else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
           'Registro Cancelado',
@@ -114,8 +147,7 @@ export class ClientComponent implements OnInit {
       if (result.isConfirmed) {
           this.httpClient.put('http://localhost:8090/w-aires/api/client/modified', this.mapperModeloClienteEditar()
           ).subscribe((response) =>{
-            this.respuesta = response;
-            if(this.respuesta){
+            if(response){
               Swal.fire(
                 'Editado con exito',
                 'Se ha editado con exito',
@@ -188,13 +220,13 @@ export class ClientComponent implements OnInit {
   
   mapperModeloClienteAgregar(){
     return{
-      id: this.idNew,
-      name: this.nameNew,
-      phone: this.phoneNew,
-      email: this.emailNew,
-      address: this.addressNew,
-      active: this.isActiveNew,
-      idClientType: this.idClientTypeNew
+      id: this.client.value.cedula,
+      name: this.client.value.name,
+      phone: this.client.value.phone,
+      email: this.client.value.email,
+      address: this.client.value.address,
+      active: this.client.value.active,
+      idClientType: this.client.value.idClientType,
     }
   }
 

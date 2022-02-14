@@ -22,12 +22,19 @@
       </button>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-        <input name="search" [(ngModel)]="search" class="form-control"  type="text" placeholder="Search.."style="border-radius: 15px"/>
-    </div>
-  </div>
 
+<!--   <div class="row">
+    <div class="col-md-12">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">
+            <i class="fas fa-user-plus"></i>
+          </span>
+        </div>
+        <input type="text" name="search" [(ngModel)]="search" class="form-control" placeholder="Search.." style="border-radius: 15px" aria-label="Username" aria-describedby="basic-addon1">
+      </div>
+    </div>
+  </div> -->
 
   <table class="table table-striped bg-light mt-2" style="border-radius: 10px;">
     <thead style="text-align: center;">
@@ -95,57 +102,53 @@
       >Todos los campos con (*) son obligatorios.</label
     >
     <div class="modal-body">
-      <form>
+      <form [formGroup]="client" (ngSubmit)="crearCliente()">
         <div class="form-group">
-          <label for="idNew">Id</label>
-          <input type="number" class="form-control" name="idNew" [(ngModel)]="idNew"/>
+          <label><label style="color: red">*</label>Tipo de documento</label>
+          <input type="number" formControlName="tipoDocumento" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['tipoDocumento'].errors }" >
+          <div *ngIf="submitted && f['tipoDocumento'].errors" class="invalid-feedback">
+              <div *ngIf="f['tipoDocumento'].errors['required']">Por favor, ingresa el tipo de documento</div>
+          </div>
         </div>
         <div class="form-group">
-          <label for="nameNew">Nombre</label>
-          <input type="text" class="form-control" name="nameNew" [(ngModel)]="nameNew" />
+          <label><label style="color: red">*</label>Número de documento</label>
+          <input type="number" formControlName="numeroDocumento" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['numeroDocumento'].errors }" >
+          <div *ngIf="submitted && f['numeroDocumento'].errors" class="invalid-feedback">
+              <div *ngIf="f['numeroDocumento'].errors['required']">Por favor, ingresa el número de documento</div>
+              <div *ngIf="f['numeroDocumento'].errors?.['pattern']">El número ingresado debe contener min 8 digitos y máximo 10 digitos</div>
+          </div>
         </div>
         <div class="form-group">
-          <label for="emailNew">Correo Electronico</label>
-          <input type="email" class="form-control" name="emailNew" [(ngModel)]="emailNew" />
+          <label><label style="color: red">*</label>Nombre completo</label>
+          <input type="text" formControlName="nombre" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['nombre'].errors }" >
+          <div *ngIf="submitted && f['nombre'].errors" class="invalid-feedback">
+              <div *ngIf="f['nombre'].errors['required']">Por favor, ingresa el nombre completo</div>
+              <div *ngIf="f['nombre'].errors['pattern']">El nombre debe contener como min 4 caracteres y máximo 50 caracteres</div>
+          </div>
+          <small class="form-text text-muted">Recuerde que el nombre no debe contener caracteres especiales</small>
         </div>
-        <div class="form-group">
-          <label for="phoneNew">Celular</label>
-          <input type="number" class="form-control" name="phoneNew" [(ngModel)]="phoneNew" />
-        </div>
-        <div class="form-group">
-          <label for="addressNew">Direccion</label>
-          <input type="text" class="form-control" name="addressNew" [(ngModel)]="addressNew" />
-        </div>
-        <div class="form-group">
-          <label for="idClientTypeNew">Id tipo Cliente</label>
-          <input type="number" class="form-control" name="idClientTypeNew" [(ngModel)]="idClientTypeNew" />
-        </div>
-        <div class="form-group">
-          <label for="isActiveNew">Activo</label>
-          <input type="text" class="form-control" name="isActiveNew" [(ngModel)]="isActiveNew" />
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            style="border-radius: 17px"
+            title="Cerrar"
+            data-bs-dismiss="modal"
+            (click)="cancelModal()"
+          >
+            <i class="fas fa-ban"></i>
+          </button>
+          <button
+            type="submit"
+            style="border-radius: 17px"
+            class="btn btn-success"
+            title="Guardar"
+          >
+            <i class="fad fa-save"></i>
+          </button>
         </div>
       </form>
-    </div>
-    <div class="modal-footer">
-      <button
-        type="button"
-        class="btn btn-secondary"
-        style="border-radius: 17px"
-        title="Cerrar"
-        data-bs-dismiss="modal"
-        (click)="cancelModal()"
-      >
-        <i class="fas fa-ban"></i>
-      </button>
-      <button
-        type="button"
-        style="border-radius: 17px"
-        class="btn btn-success"
-        title="Guardar"
-        (click)="crearCliente()"
-      >
-        <i class="fad fa-save"></i>
-      </button>
     </div>
 </ng-template>
 
