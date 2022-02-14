@@ -1,20 +1,18 @@
 package com.waires.Waires.domain.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class ClientDTO {
 
-    private String id;
-    private String name;
-    private String phone;
-    private String email;
-    private String address;
-    private String active;
-    private String idClientType;
+    private String numDocumento;
+    private String nombre;
+    private String telefono;
+    private String celular;
+    private String correo;
+    private String direccion;
+    private Character activo;
+    private String idTipoCliente;
+    private String idTipoDocumento;
 
 }

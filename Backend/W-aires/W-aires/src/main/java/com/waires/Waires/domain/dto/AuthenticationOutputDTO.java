@@ -1,10 +1,9 @@
 package com.waires.Waires.domain.dto;
 
-public class AuthenticationResponse {
-
+public class AuthenticationOutputDTO {
     private String jwt;
 
-    public AuthenticationResponse(String jwt) {
+    public AuthenticationOutputDTO(String jwt) {
         this.jwt = jwt;
     }
 

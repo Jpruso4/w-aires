@@ -1,6 +1,6 @@
 package com.waires.Waires.domain.dto;
 
-public class AuthenticationRequest {
+public class AuthenticationInputDTO {
 
     private String username;
     private String password;

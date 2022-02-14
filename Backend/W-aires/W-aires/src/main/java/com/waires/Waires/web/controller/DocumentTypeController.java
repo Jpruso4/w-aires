@@ -2,6 +2,7 @@ package com.waires.Waires.web.controller;
 
 import com.waires.Waires.domain.dto.ClientTypeDTO;
 import com.waires.Waires.domain.service.IClientTypeService;
+import com.waires.Waires.domain.service.IDocumentTypeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,17 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("clientType")
-public class ClientTypeController {
+@RequestMapping("documentType")
+public class DocumentTypeController {
 
-    private final IClientTypeService iClientTypeService;
+    private final IDocumentTypeService documentTypeService;
 
-    public ClientTypeController(IClientTypeService iClientTypeService) {
-        this.iClientTypeService = iClientTypeService;
+    public DocumentTypeController(IDocumentTypeService documentTypeService) {
+        this.documentTypeService = documentTypeService;
     }
 
-    @GetMapping("/clientsTypes")
+    @GetMapping("/documentsTypes")
     public ResponseEntity<List<ClientTypeDTO>> getProfiles(){
-        return new ResponseEntity(iClientTypeService.getClientType(), HttpStatus.OK);
+        return new ResponseEntity(documentTypeService.getDocumentType(), HttpStatus.OK);
     }
 }

@@ -1,18 +1,33 @@
 package com.waires.Waires.persistence.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.*;
 
-import javax.persistence.Id;
 
-@Data
-@Document
-@AllArgsConstructor
+@Entity
+@Table(name = "tipo_cliente")
 public class ClientType {
 
     @Id
-    private String id;
-    private String name;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_tipo_cliente")
+    private Integer idTipoCliente;
 
+    @Column(name = "nombre_tipo_cliente")
+    private String nombreTipoCliente;
+
+    public Integer getIdTipoCliente() {
+        return idTipoCliente;
+    }
+
+    public void setIdTipoCliente(Integer idTipoCliente) {
+        this.idTipoCliente = idTipoCliente;
+    }
+
+    public String getNombreTipoCliente() {
+        return nombreTipoCliente;
+    }
+
+    public void setNombreTipoCliente(String nombreTipoCliente) {
+        this.nombreTipoCliente = nombreTipoCliente;
+    }
 }
