@@ -16,7 +16,7 @@ export class ClientComponent implements OnInit {
 
   clients: any;
   typeDocuments: any;
-  typeClient: any;
+  typeClients: any;
 
   token: any;
 
@@ -42,30 +42,28 @@ export class ClientComponent implements OnInit {
       (error) => console.log("Error mostrando los clientes: " + error.value)
     );
 
-    this.httpClient.get('http://localhost:8090/w-aires/api/client/clients').subscribe(
+    this.httpClient.get('http://localhost:8090/w-aires/api/clientType/clientsTypes').subscribe(
       (response) => {
-        this.typeClient = response
-        console.log(this.clients);
+        this.typeClients = response
       },
-      (error) => console.log("Error mostrando los clientes: " + error.value)
+      (error) => console.log("Error mostrando los tipos de cliente: " + error.value)
     );
 
-    this.httpClient.get('http://localhost:8090/w-aires/api/client/clients').subscribe(
+    this.httpClient.get('http://localhost:8090/w-aires/api/documentType/documentsTypes').subscribe(
       (response) => {
         this.typeDocuments = response
-        console.log(this.clients);
       },
-      (error) => console.log("Error mostrando los clientes: " + error.value)
+      (error) => console.log("Error mostrando los tipo de documento: " + error.value)
     );
 
     this.client = this.formBuilder.group({
       tipoDocumento: ['', Validators.required],
       numeroDocumento: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{8,10}$")]],
       nombre: ['', [Validators.required, Validators.pattern("[a-zA-Z0-9 ]{4,50}")]],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.pattern("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")]],
       phone: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{7}$")]],
       cellPhone: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
-      address: ['', Validators.required],
+      address: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(5)]],
       typeClient: ['', Validators.required],
       active: ['', Validators.required]
     })
@@ -77,27 +75,26 @@ export class ClientComponent implements OnInit {
     this.submitted = true;
     if(this.client.invalid){
       return;
-    }
-
-    this.httpClient.post('http://localhost:8090/w-aires/api/client/create', this.mapperModeloClienteAgregar()).subscribe((response) =>{
-      if(response){
-        Swal.fire(
-          'Registro con exito',
-          'El Registro se ha hecho con exito',
-        );
-        window.location.reload();
-      }else{
+    }else{
+      console.log(this.mapperModeloClienteAgregar());
+      this.httpClient.post('http://localhost:8090/w-aires/api/client/create', this.mapperModeloClienteAgregar()).subscribe((response) =>{
+        if(response){
+          Swal.fire(
+            'Registro con exito',
+            'El Registro se ha hecho con exito',
+          );
+          window.location.reload();
+        }else{
           Swal.fire(
             'Registro fallado, por favor revise los campos'
           );
         }
-      }   
-    )
+      });
+    }
   }
 
   obtenerToken(){
     this.token = JSON.parse(localStorage.getItem("token")!).jwt;
-    console.log(this.token);
   }
 
   cancelModal(){
@@ -110,6 +107,7 @@ export class ClientComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed){
         this.modal.dismissAll();
+        this.client.reset();
     }else{
     }})
   }
@@ -220,13 +218,15 @@ export class ClientComponent implements OnInit {
   
   mapperModeloClienteAgregar(){
     return{
-      id: this.client.value.cedula,
-      name: this.client.value.name,
-      phone: this.client.value.phone,
-      email: this.client.value.email,
-      address: this.client.value.address,
-      active: this.client.value.active,
-      idClientType: this.client.value.idClientType,
+      numDocumento: this.client.value.numeroDocumento,
+      nombre: this.client.value.nombre,
+      telefono: this.client.value.phone,
+      celular: this.client.value.cellPhone,
+      correo: this.client.value.email,
+      direccion: this.client.value.address,
+      activo: this.client.value.active,
+      idTipoCliente: this.client.value.typeClient,
+      idTipoDocumento: this.client.value.tipoDocumento
     }
   }
 
