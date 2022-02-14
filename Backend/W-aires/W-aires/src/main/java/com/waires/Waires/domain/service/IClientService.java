@@ -9,9 +9,9 @@ public interface IClientService {
 
     List<ClientDTO> getClients();
 
-    ClientDTO createClient(ClientDTO clientInputDTO);
+    ClientDTO createClient(ClientDTO clientDTO);
 
-    ClientDTO modifiedClient(ClientDTO clientInputDTO);
+    ClientDTO modifiedClient(ClientDTO clientDTO);
 
     String deleteClient(String numDocumento);
 

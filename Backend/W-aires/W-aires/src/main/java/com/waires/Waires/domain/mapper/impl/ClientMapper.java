@@ -14,17 +14,17 @@ public class ClientMapper implements IClientMapper {
 
     @Override
     public ClientDTO mapFromEntity(Client client) {
-        ClientDTO clientInputDTO = new ClientDTO();
-        clientInputDTO.setNumDocumento(client.getNumDocumento());
-        clientInputDTO.setNombre(client.getNombre());
-        clientInputDTO.setTelefono(client.getTelefono());
-        clientInputDTO.setCelular(client.getCelular());
-        clientInputDTO.setCorreo(client.getCorreo());
-        clientInputDTO.setDireccion(client.getDireccion());
-        clientInputDTO.setActivo(client.getActivo());
-        clientInputDTO.setIdTipoCliente(client.getIdTipoCliente());
-        clientInputDTO.setIdTipoDocumento(client.getIdTipoDocumento());
-        return clientInputDTO;
+        ClientDTO clientDTO = new ClientDTO();
+        clientDTO.setNumDocumento(client.getNumDocumento());
+        clientDTO.setNombre(client.getNombre());
+        clientDTO.setTelefono(client.getTelefono());
+        clientDTO.setCelular(client.getCelular());
+        clientDTO.setCorreo(client.getCorreo());
+        clientDTO.setDireccion(client.getDireccion());
+        clientDTO.setActivo(client.getActivo());
+        clientDTO.setIdTipoCliente(client.getIdTipoCliente());
+        clientDTO.setIdTipoDocumento(client.getIdTipoDocumento());
+        return clientDTO;
     }
 
     @Override

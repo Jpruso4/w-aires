@@ -9,7 +9,7 @@ public interface IClientMapper {
 
     ClientDTO mapFromEntity(Client client);
 
-    Client mapFromDTO(ClientDTO clientInputDTO);
+    Client mapFromDTO(ClientDTO clientDTO);
 
     List<ClientDTO> mapListClient(List<Client> listClient);
 
