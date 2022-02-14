@@ -12,7 +12,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ClientComponent } from './components/client/client.component';
 import { NavbarPrivadoComponent } from './components/navbar-privado/navbar-privado.component';
-import { ProbandoFormularioComponent } from './components/probando-formulario/probando-formulario.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +21,6 @@ import { ProbandoFormularioComponent } from './components/probando-formulario/pr
     NavbarComponent,
     ClientComponent,
     NavbarPrivadoComponent,
-    ProbandoFormularioComponent,
   ],
   imports: [
     BrowserModule,
