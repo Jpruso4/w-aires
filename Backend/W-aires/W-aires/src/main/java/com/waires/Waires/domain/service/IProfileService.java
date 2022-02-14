@@ -1,18 +1,11 @@
 package com.waires.Waires.domain.service;
 
-import com.waires.Waires.domain.dto.ProfileDTO;
+import com.waires.Waires.domain.dto.ProfileTypeDTO;
 
 import java.util.List;
 
 public interface IProfileService {
-    
-    ProfileDTO getProfileById(String id);
 
-    List<ProfileDTO> getProfiles();
+    List<ProfileTypeDTO> getProfiles();
 
-    ProfileDTO createProfile(ProfileDTO profileDTO);
-
-    ProfileDTO modifiedProfile(ProfileDTO profileDTO);
-
-    String deleteProfile(String id);
 }

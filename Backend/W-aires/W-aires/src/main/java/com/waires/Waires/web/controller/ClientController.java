@@ -18,9 +18,9 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ClientDTO> getClientById(@PathVariable("id") String id){
-        return new ResponseEntity(clientService.getClientById(id), HttpStatus.OK);
+    @GetMapping("/{numDocumento}")
+    public ResponseEntity<ClientDTO> getClientById(@PathVariable("numDocumento") String numDocumento){
+        return new ResponseEntity(clientService.getClientById(numDocumento), HttpStatus.OK);
     }
 
     @GetMapping("/clients")
@@ -38,9 +38,8 @@ public class ClientController {
         return new ResponseEntity(clientService.modifiedClient(clientDTO), HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
-    @ResponseStatus(code = HttpStatus.OK)
-    public ClientDTO deleteClient(@PathVariable("id") String id){
-        return clientService.deleteClient(id);
+    @DeleteMapping("/delete/{numDocumento}")
+    public ResponseEntity<ClientDTO> deleteClient(@PathVariable("numDocumento") String numDocumento){
+        return new ResponseEntity(clientService.deleteClient(numDocumento), HttpStatus.OK);
     }
 }

@@ -1,15 +1,23 @@
 package com.waires.Waires.domain.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class ClientTypeDTO {
 
-    private String id;
-    private String name;
+    private Integer idTipoCliente;
+    private String nombreTipoCliente;
 
+    public Integer getIdTipoCliente() {
+        return idTipoCliente;
+    }
+
+    public void setIdTipoCliente(Integer idTipoCliente) {
+        this.idTipoCliente = idTipoCliente;
+    }
+
+    public String getNombreTipoCliente() {
+        return nombreTipoCliente;
+    }
+
+    public void setNombreTipoCliente(String nombreTipoCliente) {
+        this.nombreTipoCliente = nombreTipoCliente;
+    }
 }

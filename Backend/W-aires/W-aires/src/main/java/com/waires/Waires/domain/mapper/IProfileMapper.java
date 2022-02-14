@@ -1,15 +1,13 @@
 package com.waires.Waires.domain.mapper;
 
-import com.waires.Waires.domain.dto.ProfileDTO;
-import com.waires.Waires.persistence.entity.Profile;
+import com.waires.Waires.domain.dto.ProfileTypeDTO;
+import com.waires.Waires.persistence.entity.ProfileType;
 
 import java.util.List;
 
 public interface IProfileMapper {
 
-    ProfileDTO mapFromEntity(Profile profile);
+    ProfileTypeDTO mapFromEntity(ProfileType profile);
 
-    Profile mapFromDTO(ProfileDTO profileDTO);
-
-    List<ProfileDTO> mapListEmploys(List<Profile> profileList);
+    List<ProfileTypeDTO> mapListEmploys(List<ProfileType> profileList);
 }

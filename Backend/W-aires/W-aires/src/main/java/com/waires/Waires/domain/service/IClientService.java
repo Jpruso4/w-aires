@@ -1,19 +1,18 @@
 package com.waires.Waires.domain.service;
 
 import com.waires.Waires.domain.dto.ClientDTO;
-
 import java.util.List;
 
 public interface IClientService {
 
-    ClientDTO getClientById(String id);
+    ClientDTO getClientById(String numDocumento);
 
     List<ClientDTO> getClients();
 
-    ClientDTO createClient(ClientDTO clientDTO);
+    ClientDTO createClient(ClientDTO clientInputDTO);
 
-    ClientDTO modifiedClient(ClientDTO clientDTO);
+    ClientDTO modifiedClient(ClientDTO clientInputDTO);
 
-    ClientDTO deleteClient(String id);
+    String deleteClient(String numDocumento);
 
 }

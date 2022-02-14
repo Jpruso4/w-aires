@@ -1,5 +1,6 @@
 package com.waires.Waires.domain.mapper.impl;
 
+
 import com.waires.Waires.domain.dto.ClientDTO;
 import com.waires.Waires.domain.mapper.IClientMapper;
 import com.waires.Waires.persistence.entity.Client;
@@ -13,27 +14,31 @@ public class ClientMapper implements IClientMapper {
 
     @Override
     public ClientDTO mapFromEntity(Client client) {
-        ClientDTO clientDTO = new ClientDTO();
-        clientDTO.setId(client.getId());
-        clientDTO.setName(client.getName());
-        clientDTO.setPhone(client.getPhone());
-        clientDTO.setEmail(client.getEmail());
-        clientDTO.setAddress(client.getAddress());
-        clientDTO.setActive(client.getActive());
-        clientDTO.setIdClientType(client.getIdClientType());
-        return clientDTO;
+        ClientDTO clientInputDTO = new ClientDTO();
+        clientInputDTO.setNumDocumento(client.getNumDocumento());
+        clientInputDTO.setNombre(client.getNombre());
+        clientInputDTO.setTelefono(client.getTelefono());
+        clientInputDTO.setCelular(client.getCelular());
+        clientInputDTO.setCorreo(client.getCorreo());
+        clientInputDTO.setDireccion(client.getDireccion());
+        clientInputDTO.setActivo(client.getActivo());
+        clientInputDTO.setIdTipoCliente(client.getIdTipoCliente());
+        clientInputDTO.setIdTipoDocumento(client.getIdTipoDocumento());
+        return clientInputDTO;
     }
 
     @Override
-    public Client mapFromDTO(ClientDTO clientDTO) {
+    public Client mapFromDTO(ClientDTO clientInputDTO) {
         Client client = new Client();
-        client.setId(clientDTO.getId());
-        client.setName(clientDTO.getName());
-        client.setPhone(clientDTO.getPhone());
-        client.setEmail(clientDTO.getEmail());
-        client.setAddress(clientDTO.getAddress());
-        client.setActive(clientDTO.getActive());
-        client.setIdClientType(clientDTO.getIdClientType());
+        client.setNumDocumento(clientInputDTO.getNumDocumento());
+        client.setNombre(clientInputDTO.getNombre());
+        client.setTelefono(clientInputDTO.getTelefono());
+        client.setCelular(clientInputDTO.getCelular());
+        client.setCorreo(clientInputDTO.getCorreo());
+        client.setDireccion(clientInputDTO.getDireccion());
+        client.setActivo(clientInputDTO.getActivo());
+        client.setIdTipoCliente(clientInputDTO.getIdTipoCliente());
+        client.setIdTipoDocumento(clientInputDTO.getIdTipoDocumento());
         return client;
     }
 
@@ -45,6 +50,4 @@ public class ClientMapper implements IClientMapper {
         }
         return listClientDTO;
     }
-
-
 }

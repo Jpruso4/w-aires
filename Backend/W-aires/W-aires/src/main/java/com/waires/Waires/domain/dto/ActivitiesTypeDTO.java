@@ -1,17 +1,41 @@
 package com.waires.Waires.domain.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class ActivitiesTypeDTO {
 
-    private String idActivity;
-    private String name;
-    private String description;
-    private boolean activo;
+    private Integer idActividad;
+    private String nombreActividad;
+    private String descripcion;
+    private Character activo;
 
+    public Integer getIdActividad() {
+        return idActividad;
+    }
+
+    public void setIdActividad(Integer idActividad) {
+        this.idActividad = idActividad;
+    }
+
+    public String getNombreActividad() {
+        return nombreActividad;
+    }
+
+    public void setNombreActividad(String nombreActividad) {
+        this.nombreActividad = nombreActividad;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Character getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Character activo) {
+        this.activo = activo;
+    }
 }

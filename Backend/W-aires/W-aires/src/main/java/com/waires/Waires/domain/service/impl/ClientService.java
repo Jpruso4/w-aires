@@ -21,8 +21,8 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public ClientDTO getClientById(String id) {
-        Client client = clientRepository.findById(id).orElseThrow(() -> new RuntimeException("El cliente no fue encontrado"));
+    public ClientDTO getClientById(String numDocumento) {
+        Client client = clientRepository.findById(numDocumento).orElseThrow(() -> new RuntimeException("El cliente no fue encontrado"));
         return clientMapper.mapFromEntity(client);
     }
 
@@ -41,15 +41,15 @@ public class ClientService implements IClientService {
     @Override
     public ClientDTO modifiedClient(ClientDTO clientDTO) {
         Client client = clientMapper.mapFromDTO(clientDTO);
-        clientRepository.findById(client.getId()).orElseThrow(() -> new RuntimeException("El cliente no fue encontrado"));
+        clientRepository.findById(client.getNumDocumento()).orElseThrow(() -> new RuntimeException("El cliente no fue encontrado"));
         return clientMapper.mapFromEntity(clientRepository.save(client));
     }
 
     @Override
-    public ClientDTO deleteClient(String id) {
-        Client clientDelete = clientRepository.findById(id).orElseThrow(() -> new RuntimeException("El cliente no fue encontrado"));
-        clientRepository.deleteById(id);
-        return clientMapper.mapFromEntity(clientDelete);
+    public String deleteClient(String numDocumento) {
+        clientRepository.findById(numDocumento).orElseThrow(() -> new RuntimeException("El cliente no fue encontrado"));
+        clientRepository.deleteById(numDocumento);
+        return "El cliente fue eliminado con exito";
     }
 
 }
