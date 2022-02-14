@@ -6,6 +6,6 @@ import lombok.Data;
 public class DocumentTypeDTO {
 
     private Integer idTipoDocumento;
-    private String nombre;
+    private String documeno;
 
 }

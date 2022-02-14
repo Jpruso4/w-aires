@@ -9,5 +9,5 @@ public interface IProfileMapper {
 
     ProfileTypeDTO mapFromEntity(ProfileType profile);
 
-    List<ProfileTypeDTO> mapListEmploys(List<ProfileType> profileList);
+    List<ProfileTypeDTO> mapListProfile(List<ProfileType> profileList);
 }

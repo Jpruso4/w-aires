@@ -21,7 +21,7 @@ public class ProfileService implements IProfileService {
 
     @Override
     public List<ProfileTypeDTO> getProfiles() {
-        return profileMapper.mapListEmploys(profileRepository.findAll());
+        return profileMapper.mapListProfile(profileRepository.findAll());
     }
 
 }

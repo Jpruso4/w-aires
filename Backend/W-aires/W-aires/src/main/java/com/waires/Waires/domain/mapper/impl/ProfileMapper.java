@@ -20,7 +20,7 @@ public class ProfileMapper implements IProfileMapper {
 
 
     @Override
-    public List<ProfileTypeDTO> mapListEmploys(List<ProfileType> profileList) {
+    public List<ProfileTypeDTO> mapListProfile(List<ProfileType> profileList) {
         List<ProfileTypeDTO> list = new LinkedList<>();
         for (ProfileType profile : profileList) {
             list.add(mapFromEntity(profile));
