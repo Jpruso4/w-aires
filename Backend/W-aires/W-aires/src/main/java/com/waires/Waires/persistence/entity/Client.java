@@ -7,7 +7,6 @@ import javax.persistence.*;
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "num_documento")
     private String numDocumento;
 

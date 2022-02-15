@@ -1,5 +1,5 @@
 <app-navbar-privado></app-navbar-privado>
-<div class="container">
+<div class="container" style="max-width: 1400px;">
   <br />
   <div class="row">
     <div class="col-md-4">
@@ -22,33 +22,30 @@
       </button>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-        <input name="search" [(ngModel)]="search" class="form-control"  type="text" placeholder="Search.."style="border-radius: 15px"/>
-    </div>
-  </div>
-
-
-  <table class="table table-striped bg-light mt-2" style="border-radius: 10px;">
-    <thead style="text-align: center;">
-      <th>Id</th>
-      <th>Nombre</th>
-      <th>Correo</th>
-      <th>Dirección</th>
+  <table class="table table-striped  mt-2 " style="border-radius: 10px;">
+    <thead class="bg-dark" style="text-align: center; color: white;">
+      <th>Tipo de documento</th>
+      <th>Número de documento</th>
+      <th>Nombre completo</th>
+      <th>Correo electrónico</th>
+      <th>Teléfono</th>
       <th>Celular</th>
-      <th>Tipo Cliente</th>
+      <th>Dirección</th>
+      <th>Tipo de persona</th>
       <th>Activo</th>
       <th>Acciones</th>
     </thead>
     <tbody>
-      <tr *ngFor="let client of clients" style="text-align: center">
-        <td>{{client.id}}</td>
-        <td>{{client.name}}</td>
-        <td>{{client.email}}</td>
-        <td>{{client.address}}</td>
-        <td>{{client.phone}}</td>
-        <td>{{client.idClientType}}</td>
-        <td>{{client.active}}</td>
+      <tr *ngFor="let client of clients" style="text-align: center;">
+        <td>{{client.idTipoDocumento}}</td>
+        <td>{{client.numDocumento}}</td>
+        <td>{{client.nombre}}</td>
+        <td>{{client.correo}}</td>
+        <td>{{client.telefono}}</td>
+        <td>{{client.celular}}</td>
+        <td>{{client.direccion}}</td>
+        <td>{{client.idTipoCliente}}</td>
+        <td>{{client.activo}}</td>
         <td>
           <a>
             <button
@@ -68,7 +65,7 @@
               type="button"
               class="btn btn-danger"
               title="Eliminar cliente"
-              (click)="eliminarCliente(client.id)"
+              (click)="eliminarCliente(client.numDocumento)"
             >
               <i class="fas fa-trash"></i>
             </button>
@@ -86,7 +83,7 @@
         type="button"
         class="close"
         aria-label="Close"
-        (click)="modal.dismiss()"
+        (click)="cancelModal()"
       >
         <span aria-hidden="true">&times;</span>
       </button>
@@ -95,57 +92,106 @@
       >Todos los campos con (*) son obligatorios.</label
     >
     <div class="modal-body">
-      <form>
-        <div class="form-group">
-          <label for="idNew">Id</label>
-          <input type="number" class="form-control" name="idNew" [(ngModel)]="idNew"/>
+      <form [formGroup]="client" >
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Tipo de documento</label>
+          <select id="tipoDocumento" class="form-control" formControlName="tipoDocumento" [ngClass]="{ 'is-invalid': submitted && f['tipoDocumento'].errors }">
+            <option value="">Seleccione un tipo de documento</option>
+            <option value="{{typeDocument.idTipoDocumento}}" *ngFor="let typeDocument of typeDocuments">
+              {{typeDocument.documeno}}
+            </option>
+          </select>
+          <div *ngIf="submitted && f['tipoDocumento'].errors" class="invalid-feedback">
+              <div *ngIf="f['tipoDocumento'].errors['required']">Por favor, ingresa el tipo de documento</div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="nameNew">Nombre</label>
-          <input type="text" class="form-control" name="nameNew" [(ngModel)]="nameNew" />
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Número de documento</label>
+          <input type="number" formControlName="numeroDocumento" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['numeroDocumento'].errors }">
+          <div *ngIf="submitted && f['numeroDocumento'].errors" class="invalid-feedback">
+              <div *ngIf="f['numeroDocumento'].errors['required']">Por favor, ingresa el número de documento</div>
+              <div *ngIf="f['numeroDocumento'].errors?.['pattern']">El número ingresado debe contener min 8 digitos y máximo 10 digitos</div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="emailNew">Correo Electronico</label>
-          <input type="email" class="form-control" name="emailNew" [(ngModel)]="emailNew" />
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Nombre completo</label>
+          <input type="text" formControlName="nombre" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['nombre'].errors }">
+          <div *ngIf="submitted && f['nombre'].errors" class="invalid-feedback">
+              <div *ngIf="f['nombre'].errors['required']">Por favor, ingresa el nombre completo</div>
+              <div *ngIf="f['nombre'].errors['pattern']">El nombre debe contener como min 4 caracteres y máximo 50 caracteres</div>
+          </div>
+          <small class="form-text text-muted">Recuerde que el nombre no debe contener caracteres especiales</small>
         </div>
-        <div class="form-group">
-          <label for="phoneNew">Celular</label>
-          <input type="number" class="form-control" name="phoneNew" [(ngModel)]="phoneNew" />
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Correo electrónico</label>
+          <input type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+          <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+              <div *ngIf="f['email'].errors['required']">Por favor, ingresa el correo electrónico</div>
+              <div *ngIf="f['email'].errors['pattern']">El correo debe contar con una extensión de correo electrónico</div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="addressNew">Direccion</label>
-          <input type="text" class="form-control" name="addressNew" [(ngModel)]="addressNew" />
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Teléfono</label>
+          <input type="number" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['phone'].errors }">
+          <div *ngIf="submitted && f['phone'].errors" class="invalid-feedback">
+              <div *ngIf="f['phone'].errors['required']">Por favor, ingresa el número telefónico</div>
+              <div *ngIf="f['phone'].errors['pattern']">El número telefonico supera los digitos permitidos</div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="idClientTypeNew">Id tipo Cliente</label>
-          <input type="number" class="form-control" name="idClientTypeNew" [(ngModel)]="idClientTypeNew" />
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Celular</label>
+          <input type="number" formControlName="cellPhone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['cellPhone'].errors }">
+          <div *ngIf="submitted && f['cellPhone'].errors" class="invalid-feedback">
+              <div *ngIf="f['cellPhone'].errors['required']">Por favor, ingresa el número de celular</div>
+              <div *ngIf="f['cellPhone'].errors['pattern']">El número de celular supera los digitos permitidos</div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="isActiveNew">Activo</label>
-          <input type="text" class="form-control" name="isActiveNew" [(ngModel)]="isActiveNew" />
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Dirección</label>
+          <input type="text" formControlName="address" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['address'].errors }">
+          <div *ngIf="submitted && f['address'].errors" class="invalid-feedback">
+              <div *ngIf="f['address'].errors['required']">Por favor, ingresa dirección</div>
+              <div *ngIf="f['address'].errors['maxlength']">La dirección cuenta con más caracteres de los permitidos</div>
+              <div *ngIf="f['address'].errors['minlength']">La dirección cuenta con menos caracteres de los permitidos</div>
+          </div>
+        </div>
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Tipo de persona</label>
+          <select id="typeClient" class="form-control" formControlName="typeClient" [ngClass]="{ 'is-invalid': submitted && f['typeClient'].errors }">
+            <option value="">Seleccione un tipo de persona</option>
+            <option value="{{typeClient.idTipoCliente}}" *ngFor="let typeClient of typeClients">
+              {{typeClient.nombreTipoCliente}}
+            </option>
+          </select>
+          <div *ngIf="submitted && f['typeClient'].errors" class="invalid-feedback">
+              <div *ngIf="f['typeClient'].errors['required']">Por favor, ingresa el tipo de persona</div>
+          </div>
+        </div>
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Activo</label>
+          <select id="active" class="form-control" formControlName="active" [ngClass]="{ 'is-invalid': submitted && f['active'].errors }">
+            <option value="S">Sí</option>
+          </select>
+          <div *ngIf="submitted && f['active'].errors" class="invalid-feedback">
+              <div *ngIf="f['active'].errors['required']">Por favor, seleccione si es activo</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            style="border-radius: 17px"
+            title="Cerrar"
+            (click)="cancelModal()"
+          >
+            <i class="fas fa-ban"></i>
+          </button>
+          <div class="form-group">
+            <button style="border-radius: 17px" class="btn btn-success" title="Guardar" (click)="crearCliente()">
+              <i class="fad fa-save"></i>
+            </button>  
+          </div>
         </div>
       </form>
-    </div>
-    <div class="modal-footer">
-      <button
-        type="button"
-        class="btn btn-secondary"
-        style="border-radius: 17px"
-        title="Cerrar"
-        data-bs-dismiss="modal"
-        (click)="cancelModal()"
-      >
-        <i class="fas fa-ban"></i>
-      </button>
-      <button
-        type="button"
-        style="border-radius: 17px"
-        class="btn btn-success"
-        title="Guardar"
-        (click)="crearCliente()"
-      >
-        <i class="fad fa-save"></i>
-      </button>
     </div>
 </ng-template>
 
@@ -165,57 +211,108 @@
       >Todos los campos con (*) son obligatorios.</label
     >
     <div class="modal-body">
-      <form v>
-        <div class="form-group">
-          <label for="idEdit">Id</label>
-          <input type="number" class="form-control" name="idEdit" [(ngModel)]="idEdit" readonly="readonly"/>
+      <form [formGroup]="client" >
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Tipo de documento</label>
+          <select id="tipoDocumento" class="form-control" formControlName="tipoDocumento" [ngClass]="{ 'is-invalid': submitted && f['tipoDocumento'].errors }">
+            <option value="">Seleccione un tipo de documento</option>
+            <option value="{{typeDocument.idTipoDocumento}}" *ngFor="let typeDocument of typeDocuments">
+              {{typeDocument.documeno}}
+            </option>
+          </select>
+          <div *ngIf="submitted && f['tipoDocumento'].errors" class="invalid-feedback">
+              <div *ngIf="f['tipoDocumento'].errors['required']">Por favor, ingresa el tipo de documento</div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="nameEdit">Nombre</label>
-          <input type="text" class="form-control" name="nameEdit" [(ngModel)]="nameEdit"/>
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Número de documento</label>
+          <input type="number" formControlName="numeroDocumento" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['numeroDocumento'].errors }" readonly>
+          <div *ngIf="submitted && f['numeroDocumento'].errors" class="invalid-feedback">
+              <div *ngIf="f['numeroDocumento'].errors['required']">Por favor, ingresa el número de documento</div>
+              <div *ngIf="f['numeroDocumento'].errors?.['pattern']">El número ingresado debe contener min 8 digitos y máximo 10 digitos</div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="emailEdit">Correo Electronico</label>
-          <input type="email" class="form-control" name="emailEdit" [(ngModel)]="emailEdit"/>
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Nombre completo</label>
+          <input type="text" formControlName="nombre" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['nombre'].errors }">
+          <div *ngIf="submitted && f['nombre'].errors" class="invalid-feedback">
+              <div *ngIf="f['nombre'].errors['required']">Por favor, ingresa el nombre completo</div>
+              <div *ngIf="f['nombre'].errors['pattern']">El nombre debe contener como min 4 caracteres y máximo 50 caracteres</div>
+          </div>
+          <small class="form-text text-muted">Recuerde que el nombre no debe contener caracteres especiales</small>
         </div>
-        <div class="form-group">
-          <label for="phoneEdit">Celular</label>
-          <input type="number" class="form-control" name="phoneEdit" [(ngModel)]="phoneEdit"/>
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Correo electrónico</label>
+          <input type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+          <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+              <div *ngIf="f['email'].errors['required']">Por favor, ingresa el correo electrónico</div>
+              <div *ngIf="f['email'].errors['pattern']">El correo debe contar con una extensión de correo electrónico</div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="addressEdit">Direccion</label>
-          <input type="text" class="form-control" name="addressEdit" [(ngModel)]="addressEdit"/>
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Teléfono</label>
+          <input type="number" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['phone'].errors }">
+          <div *ngIf="submitted && f['phone'].errors" class="invalid-feedback">
+              <div *ngIf="f['phone'].errors['required']">Por favor, ingresa el número telefónico</div>
+              <div *ngIf="f['phone'].errors['pattern']">El número telefonico supera los digitos permitidos</div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="idClientTypeEdit">Id tipo Cliente</label>
-          <input type="number" class="form-control" name="idClientTypeEdit" [(ngModel)]="idClientTypeEdit"/>
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Celular</label>
+          <input type="number" formControlName="cellPhone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['cellPhone'].errors }">
+          <div *ngIf="submitted && f['cellPhone'].errors" class="invalid-feedback">
+              <div *ngIf="f['cellPhone'].errors['required']">Por favor, ingresa el número de celular</div>
+              <div *ngIf="f['cellPhone'].errors['pattern']">El número de celular supera los digitos permitidos</div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="isActiveEdit">Activo</label>
-          <input type="text" class="form-control" name="isActiveEdit" [(ngModel)]="isActiveEdit"/>
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Dirección</label>
+          <input type="text" formControlName="address" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['address'].errors }">
+          <div *ngIf="submitted && f['address'].errors" class="invalid-feedback">
+              <div *ngIf="f['address'].errors['required']">Por favor, ingresa dirección</div>
+              <div *ngIf="f['address'].errors['maxlength']">La dirección cuenta con más caracteres de los permitidos</div>
+              <div *ngIf="f['address'].errors['minlength']">La dirección cuenta con menos caracteres de los permitidos</div>
+          </div>
+        </div>
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Tipo de persona</label>
+          <select id="typeClient" class="form-control" formControlName="typeClient" [ngClass]="{ 'is-invalid': submitted && f['typeClient'].errors }">
+            <option value="">Seleccione un tipo de persona</option>
+            <option value="{{typeClient.idTipoCliente}}" *ngFor="let typeClient of typeClients">
+              {{typeClient.nombreTipoCliente}}
+            </option>
+          </select>
+          <div *ngIf="submitted && f['typeClient'].errors" class="invalid-feedback">
+              <div *ngIf="f['typeClient'].errors['required']">Por favor, ingresa el tipo de persona</div>
+          </div>
+        </div>
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Activo</label>
+          <select id="active" class="form-control" formControlName="active" [ngClass]="{ 'is-invalid': submitted && f['active'].errors }">
+            <option value="">Seleccione un si es activo</option>
+            <option value="S">Sí</option>
+            <option value="N">No</option>
+          </select>
+          <div *ngIf="submitted && f['active'].errors" class="invalid-feedback">
+              <div *ngIf="f['active'].errors['required']">Por favor, seleccione si es activo</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            style="border-radius: 17px"
+            title="Cerrar"
+            (click)="cancelModal()"
+          >
+            <i class="fas fa-ban"></i>
+          </button>
+          <div class="form-group">
+            <button style="border-radius: 17px" class="btn btn-success" title="Guardar" (click)="editarCliente()">
+              <i class="fad fa-save"></i>
+            </button>  
+          </div>
         </div>
       </form>
-    </div>
-    <div class="modal-footer">
-      <button
-        type="button"
-        class="btn btn-secondary"
-        style="border-radius: 17px"
-        title="Cerrar"
-        data-bs-dismiss="modal"
-        (click)="cancelModal()"
-      >
-        <i class="fas fa-ban"></i>
-      </button>
-      <button
-        type="submit"
-        style="border-radius: 17px"
-        class="btn btn-success"
-        title="Guardar"
-        (click)="editarCliente()"
-      >
-        <i class="fad fa-save"></i>
-      </button>
     </div>
 </ng-template>
 

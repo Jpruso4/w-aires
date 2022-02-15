@@ -1,16 +1,6 @@
-header{
-    background: #055DC4;
-    background: linear-gradient(to right, #76B5FF, #0D1B54);
-}
 
-.bg{
-  /* background-image: url(../images/logi.jpg);
-    background-position: center center;
-    */
-}
 .container{
 background-size: 100%;
-    background-color: #81c9fa;;
     background-attachment: fixed;
     width: 1600px;
     height: 100%;
