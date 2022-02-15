@@ -8,6 +8,7 @@ import com.waires.Waires.persistence.repository.IClientRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientService implements IClientService {
@@ -46,10 +47,13 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public String deleteClient(String numDocumento) {
-        clientRepository.findById(numDocumento).orElseThrow(() -> new RuntimeException("El cliente no fue encontrado"));
+    public ClientDTO deleteClient(String numDocumento) {
+        Optional<Client> client = clientRepository.obtenerClienteDocumento(numDocumento);
+        if(!client.isPresent()){
+            new RuntimeException("El cliente no fue encontrado");
+        }
         clientRepository.deleteById(numDocumento);
-        return "El cliente fue eliminado con exito";
+        return clientMapper.mapFromEntity(client.get());
     }
 
 }
