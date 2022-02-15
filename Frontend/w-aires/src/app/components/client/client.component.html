@@ -170,9 +170,7 @@
         <div class="form-group mb-2">
           <label><label style="color: red">*</label>Activo</label>
           <select id="active" class="form-control" formControlName="active" [ngClass]="{ 'is-invalid': submitted && f['active'].errors }">
-            <option value="">Seleccione un si es activo</option>
             <option value="S">Sí</option>
-            <option value="N">No</option>
           </select>
           <div *ngIf="submitted && f['active'].errors" class="invalid-feedback">
               <div *ngIf="f['active'].errors['required']">Por favor, seleccione si es activo</div>

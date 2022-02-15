@@ -65,7 +65,7 @@ export class ClientComponent implements OnInit {
       cellPhone: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       address: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(5)]],
       typeClient: ['', Validators.required],
-      active: ['', Validators.required]
+      active: ['S', Validators.required]
     })
   }
 
