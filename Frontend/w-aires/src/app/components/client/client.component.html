@@ -53,7 +53,7 @@
               type="button"
               class="btn btn-warning"
               aria-label="Editar"
-              title="Editar cliente"
+              title="Editar "
               (click)="openModalEdit(editarClienteModal, client)"
             >
               <i class="fas fa-pen"></i>
@@ -169,7 +169,7 @@
         </div>
         <div class="form-group mb-2">
           <label><label style="color: red">*</label>Activo</label>
-          <select id="active" class="form-control" formControlName="active" [ngClass]="{ 'is-invalid': submitted && f['active'].errors }">
+          <select id="active" class="form-control" formControlName="active" [ngClass]="{ 'is-invalid': submitted && f['active'].errors }" readonly>
             <option value="S">Sí</option>
           </select>
           <div *ngIf="submitted && f['active'].errors" class="invalid-feedback">
@@ -202,7 +202,7 @@
         type="button"
         class="close"
         aria-label="Close"
-        (click)="modal.dismiss()"
+        (click)="cancelModal()"
       >
         <span aria-hidden="true">&times;</span>
       </button>
@@ -289,7 +289,7 @@
         <div class="form-group mb-2">
           <label><label style="color: red">*</label>Activo</label>
           <select id="active" class="form-control" formControlName="active" [ngClass]="{ 'is-invalid': submitted && f['active'].errors }">
-            <option value="">Seleccione un si es activo</option>
+            <option value="">Seleccione si es activo</option>
             <option value="S">Sí</option>
             <option value="N">No</option>
           </select>

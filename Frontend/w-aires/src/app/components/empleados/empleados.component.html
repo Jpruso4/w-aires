@@ -1,1 +1,274 @@
-<p>empleados works!</p>
+<app-navbar-privado></app-navbar-privado>
+<div class="container" style="max-width: 1400px;">
+  <br />
+  <div class="row">
+    <div class="col-md-4">
+      <h3><strong>Empleados</strong></h3>
+    </div>
+    <div class="col-md-4"></div>
+    <div style="text-align: right" class="col-md-4 ml-auto">
+      <button
+        style="
+          align-content: flex-start;
+          margin-bottom: 5px;
+          border-radius: 17px;
+        "
+        type="button"
+        class="btn btn-success"
+        title="Crear empleado"
+        (click)="openModalCreate(crearEmpleadoModal)"
+      >
+        <i class="fas fa-user-plus"></i>
+      </button>
+    </div>
+  </div>
+  <table class="table table-striped bg-light mt-2" style="border-radius: 10px;">
+    <thead style="text-align: center;">
+      <th>Número de cédula</th>
+      <th>Nombre completo</th>
+      <th>Correo electrónico</th>
+      <th>Celular</th>
+      <th>Contraseña</th>
+      <th>Tipo de perfil</th>
+      <th>Activo</th>
+      <th>Acciones</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employ of employs" style="text-align: center;">
+        <td>{{employ.cedula}}</td>
+        <td>{{employ.nombre}}</td>
+        <td>{{employ.correo}}</td>
+        <td>{{employ.celular}}</td>
+        <td>{{employ.contrasena}}</td>
+        <td>{{employ.perfil}}</td>
+        <td>{{employ.activo}}</td>
+        <td>
+          <a>
+            <button
+              style="border-radius: 17px; margin: 2px"
+              type="button"
+              class="btn btn-warning"
+              aria-label="Editar"
+              title="Editar empleado"
+              (click)="openModalEdit(editarEmpleadoModal, employ)"
+            >
+              <i class="fas fa-pen"></i>
+            </button>
+          </a>
+          <a>
+            <button
+              style="border-radius: 17px; margin: 2px"
+              type="button"
+              class="btn btn-danger"
+              title="Eliminar empleado"
+              (click)="eliminarEmpleado(employ.cedula)"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #crearEmpleadoModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title"><strong>Crear Empleado</strong></h5>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="cancelModal()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <label style="text-align: center; color: red" class="form-text"
+      >Todos los campos con (*) son obligatorios.</label
+    >
+    <div class="modal-body">
+      <form [formGroup]="employ" >
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Número de cédula</label>
+          <input type="number" formControlName="cedula" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['cedula'].errors }">
+          <div *ngIf="submitted && f['cedula'].errors" class="invalid-feedback">
+              <div *ngIf="f['cedula'].errors['required']">Por favor, ingresa el número de la cédula</div>
+              <div *ngIf="f['cedula'].errors?.['pattern']">El número ingresado debe contener min 8 digitos y máximo 10 digitos</div>
+          </div>
+        </div>
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Nombre completo</label>
+          <input type="text" formControlName="nombre" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['nombre'].errors }">
+          <div *ngIf="submitted && f['nombre'].errors" class="invalid-feedback">
+              <div *ngIf="f['nombre'].errors['required']">Por favor, ingresa el nombre completo</div>
+              <div *ngIf="f['nombre'].errors['pattern']">El nombre debe contener como min 4 caracteres y máximo 50 caracteres</div>
+          </div>
+          <small class="form-text text-muted">Recuerde que el nombre no debe contener caracteres especiales</small>
+        </div>
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Correo electrónico</label>
+          <input type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+          <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+              <div *ngIf="f['email'].errors['required']">Por favor, ingresa el correo electrónico</div>
+              <div *ngIf="f['email'].errors['pattern']">El correo debe contar con una extensión de correo electrónico</div>
+          </div>
+        </div>
+        <div class="form-group mb-2">
+            <label><label style="color: red">*</label>Contraseña</label>
+            <input type="password" formControlName="contrasena" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['contrasena'].errors }">
+            <div *ngIf="submitted && f['contrasena'].errors" class="invalid-feedback">
+                <div *ngIf="f['contrasena'].errors['required']">Por favor, ingresa la contraseña</div>
+                <div *ngIf="f['contrasena'].errors['pattern']">La contraseña no cumple con los parametros</div>
+            </div>
+            <small class="form-text text-muted">La contraseña debe contener minimo una mayuscula, numeros, minusculas y minimo 8 caracteres</small>
+          </div>
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Celular</label>
+          <input type="number" formControlName="cellPhone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['cellPhone'].errors }">
+          <div *ngIf="submitted && f['cellPhone'].errors" class="invalid-feedback">
+              <div *ngIf="f['cellPhone'].errors['required']">Por favor, ingresa el número de celular</div>
+              <div *ngIf="f['cellPhone'].errors['pattern']">El número de celular no supera los digitos permitidos</div>
+          </div>
+        </div>
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Perfil</label>
+          <select id="perfil" class="form-control" formControlName="perfil" [ngClass]="{ 'is-invalid': submitted && f['perfil'].errors }">
+            <option value="">Seleccione un tipo de perfil</option>
+            <option value="{{typePerfil.idPerfil}}" *ngFor="let typePerfil of typesPerfil">
+              {{typePerfil.nombrePerfil}}
+            </option>
+          </select>
+          <div *ngIf="submitted && f['perfil'].errors" class="invalid-feedback">
+              <div *ngIf="f['perfil'].errors['required']">Por favor, ingresa el tipo de perfil</div>
+          </div>
+        </div>
+        <div class="form-group mb-2">
+            <label><label style="color: red">*</label>Activo</label>
+            <select id="active" class="form-control" formControlName="active" [ngClass]="{ 'is-invalid': submitted && f['active'].errors }" readonly>
+              <option value="S">Sí</option>
+            </select>
+            <div *ngIf="submitted && f['active'].errors" class="invalid-feedback">
+                <div *ngIf="f['active'].errors['required']">Por favor, seleccione si es activo</div>
+            </div>
+          </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            style="border-radius: 17px"
+            title="Cerrar"
+            (click)="cancelModal()"
+          >
+            <i class="fas fa-ban"></i>
+          </button>
+          <div class="form-group">
+            <button style="border-radius: 17px" class="btn btn-success" title="Guardar" (click)="crearEmpleado()">
+              <i class="fad fa-save"></i>
+            </button>  
+          </div>
+        </div>
+      </form>
+    </div>
+</ng-template>
+
+<ng-template #editarEmpleadoModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title"><strong>Editar Empleado</strong></h5>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="cancelModal()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <label style="text-align: center; color: red" class="form-text"
+      >Todos los campos con (*) son obligatorios.</label
+    >
+    <div class="modal-body">
+      <form [formGroup]="employ" >
+        <div class="form-group mb-2">
+            <label><label style="color: red">*</label>Número de cédula</label>
+            <input type="number" formControlName="cedula" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['cedula'].errors }" readonly>
+            <div *ngIf="submitted && f['cedula'].errors" class="invalid-feedback">
+                <div *ngIf="f['cedula'].errors['required']">Por favor, ingresa el número de la cédula</div>
+                <div *ngIf="f['cedula'].errors?.['pattern']">El número ingresado debe contener min 8 digitos y máximo 10 digitos</div>
+            </div>
+          </div>
+          <div class="form-group mb-2">
+            <label><label style="color: red">*</label>Nombre completo</label>
+            <input type="text" formControlName="nombre" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['nombre'].errors }">
+            <div *ngIf="submitted && f['nombre'].errors" class="invalid-feedback">
+                <div *ngIf="f['nombre'].errors['required']">Por favor, ingresa el nombre completo</div>
+                <div *ngIf="f['nombre'].errors['pattern']">El nombre debe contener como min 4 caracteres y máximo 50 caracteres</div>
+            </div>
+            <small class="form-text text-muted">Recuerde que el nombre no debe contener caracteres especiales</small>
+          </div>
+          <div class="form-group mb-2">
+            <label><label style="color: red">*</label>Correo electrónico</label>
+            <input type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+            <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                <div *ngIf="f['email'].errors['required']">Por favor, ingresa el correo electrónico</div>
+                <div *ngIf="f['email'].errors['pattern']">El correo debe contar con una extensión de correo electrónico</div>
+            </div>
+          </div>
+          <div class="form-group mb-2">
+              <label><label style="color: red">*</label>Contraseña</label>
+              <input type="password" formControlName="contrasena" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['contrasena'].errors }">
+              <div *ngIf="submitted && f['contrasena'].errors" class="invalid-feedback">
+                  <div *ngIf="f['contrasena'].errors['required']">Por favor, ingresa la contraseña</div>
+                  <div *ngIf="f['contrasena'].errors['pattern']">El correo debe contar con una extensión de correo electrónico</div>
+              </div>
+              <small class="form-text text-muted">La contraseña debe contener minimo una mayuscula, numeros, minusculas y minimo 8 caracteres</small>
+            </div>
+          <div class="form-group mb-2">
+            <label><label style="color: red">*</label>Celular</label>
+            <input type="number" formControlName="cellPhone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['cellPhone'].errors }">
+            <div *ngIf="submitted && f['cellPhone'].errors" class="invalid-feedback">
+                <div *ngIf="f['cellPhone'].errors['required']">Por favor, ingresa el número de celular</div>
+                <div *ngIf="f['cellPhone'].errors['pattern']">El número de celular supera los digitos permitidos</div>
+            </div>
+          </div>
+          <div class="form-group mb-2">
+            <label><label style="color: red">*</label>Perfil</label>
+            <select id="typeClient" class="form-control" formControlName="typeClient" [ngClass]="{ 'is-invalid': submitted && f['typeClient'].errors }">
+              <option value="">Seleccione un tipo de persona</option>
+              <option value="{{typePerfil.idPerfil}}" *ngFor="let typePerfil of typesPerfil">
+                {{typePerfil.nombrePerfil}}
+              </option>
+            </select>
+            <div *ngIf="submitted && f['typeClient'].errors" class="invalid-feedback">
+                <div *ngIf="f['typeClient'].errors['required']">Por favor, ingresa el tipo de perfil</div>
+            </div>
+          </div>
+        <div class="form-group mb-2">
+          <label><label style="color: red">*</label>Activo</label>
+          <select id="active" class="form-control" formControlName="active" [ngClass]="{ 'is-invalid': submitted && f['active'].errors }">
+            <option value="">Seleccione si es activo</option>
+            <option value="S">Sí</option>
+            <option value="N">No</option>
+          </select>
+          <div *ngIf="submitted && f['active'].errors" class="invalid-feedback">
+              <div *ngIf="f['active'].errors['required']">Por favor, seleccione si es activo</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            style="border-radius: 17px"
+            title="Cerrar"
+            (click)="cancelModal()"
+          >
+            <i class="fas fa-ban"></i>
+          </button>
+          <div class="form-group">
+            <button style="border-radius: 17px" class="btn btn-success" title="Guardar" (click)="editarEmpleado()">
+              <i class="fad fa-save"></i>
+            </button>  
+          </div>
+        </div>
+      </form>
+    </div>
+</ng-template>
+

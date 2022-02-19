@@ -17,7 +17,7 @@
                 <input placeholder="Ingrese la contraseña" type="password" required pattern="[A-Za-z0-9]{8,40}" title="Letras y números. Tamaño mínimo: 8. Tamaño máximo: 40" class="form-control" name="password" [(ngModel)]="password"/>
             </div>
             <div style="text-align: right;">
-              <input type="submit" class="btn btn-primary mt-3" value="Iniciar Sesión"/>
+              <input type="submit" class="btn btn-primary mt-3" value="Iniciar Sesión" (click)="login()"/>
              
             </div>
           </form>

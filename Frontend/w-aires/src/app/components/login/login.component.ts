@@ -23,20 +23,20 @@ export class LoginComponent implements OnInit {
 
   login(){
     let user = new Login(this.username, this.password);
-    return this.httpClient.post('http://localhost:8090/w-aires/api/auth/authenticate',user).subscribe(
-      (response)=>{
-        console.log(response)
-        this.guardarLocalStorage(response);
-        this.router.navigate(["/client"]);
-      },
-      (error) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'El usuario que has ingresado es incorrecto',
-        })
-      }
-    );
+    //return this.httpClient.post('http://localhost:8090/w-aires/api/auth/authenticate',user).subscribe(
+      //(response)=>{
+        //console.log(response)
+        //this.guardarLocalStorage(response);
+        this.router.navigate(["/home"]);
+      //},
+      //(error) => {
+        //Swal.fire({
+          //icon: 'error',
+          //title: 'Oops...',
+          //text: 'El usuario que has ingresado es incorrecto',
+        //})
+      //}
+    //);
   }
 
   guardarLocalStorage(token:any){

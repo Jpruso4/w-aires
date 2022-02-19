@@ -1,0 +1,150 @@
+<app-navbar-privado></app-navbar-privado>
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <h3><strong>Capacidad de Equipos</strong></h3>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4 ml-auto" style="text-align: right;">
+            <button style="align-content: flex-start; margin-bottom: 5px; border-radius: 17px" title="crear capacidad de Equipo" class="btn btn-success" (click)="openModalCreate(crearCapacidadEquipoModal)">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    <table class="table table-striped bg-light mt-2" style="border-radius: 10px;">
+        <thead style="text-align: center;">
+            <th>Id capacidad</th>
+            <th>Capacidad</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let capacidadEquipo of capacidadEquipos" style="text-align: center;">
+                <td>{{capacidadEquipo.idCapacidad}}</td>
+                <td>{{capacidadEquipo.capacidad}}</td>
+                <td>
+                    <a>
+                        <button
+                            style="border-radius: 17px; margin: 2px"
+                            type="button"
+                            class="btn btn-warning"
+                            aria-label="Editar"
+                            title="Editar capacidad de Equipo"
+                            (click)="openModalEdit(editarCapacidadEquipoModal, capacidadEquipo)"
+                          >
+                            <i class="fas fa-pen"></i>
+                        </button>
+                    </a>
+                    <a>
+                        <button
+                        style="border-radius: 17px; margin: 2px"
+                        type="button"
+                        class="btn btn-danger"
+                        title="Eliminar capacidad de Equipo"
+                        (click)="eliminarCapacidadEquipo(capacidadEquipo.idCapacidad)"
+                      >
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #crearCapacidadEquipoModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title"><strong>Crear Capacidad de Equipo</strong></h5>
+        <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="cancelModal()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <label style="text-align: center; color: red" class="form-text">Todos los campos con (*) son obligatorios.</label>
+    <div class="modal-body">
+        <form [formGroup]="capacidadEquipo">
+            <div class="form-group mb-2">
+                <label><label style="color: red">*</label>Id Capacidad</label>
+                <input type="number" formControlName="idCapacidad" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['idCapacidad'].errors }" readonly>
+                <div *ngIf="submitted && f['idCapacidad'].errors" class="invalid-feedback">
+                    <div *ngIf="f['idCapacidad'].errors['required']">Por favor, ingresa el id de la capacidad</div>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <label><label style="color: red;">*</label>Capacidad</label>
+                <input type="text" formControlName="capacidad" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['capacidad'].errors }">
+                <div *ngIf="submitted && f['capacidad'].errors" class="invalid-feedback">
+                    <div *ngIf="f['capacidad'].errors['required']">Por favor, ingresa la capacidad</div>
+                    <div *ngIf="f['capacidad'].errors?.['pattern']">La capacidad debe contener como min 4 caracteres y máximo 50 caracteres</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                class="btn btn-secondary"
+                style="border-radius: 17px"
+                title="Cerrar"
+                (click)="cancelModal()"
+              >
+                <i class="fas fa-ban"></i>
+              </button>
+              <div class="form-group">
+                <button style="border-radius: 17px" class="btn btn-success" title="Guardar" (click)="crearCapacidadEquipo()">
+                  <i class="fad fa-save"></i>
+                </button>  
+              </div>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #editarCapacidadEquipoModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title"><strong>Editar Capacidad de Equipo</strong></h5>
+        <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="cancelModal()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <label style="text-align: center; color: red" class="form-text">Todos los campos con (*) son obligatorios.</label>
+    <div class="modal-body">
+        <form [formGroup]="capacidadEquipo">
+            <div class="form-group mb-2">
+                <label><label style="color: red">*</label>Id Capacidad</label>
+                <input type="number" formControlName="idCapacidad" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['idCapacidad'].errors }" readonly>
+                <div *ngIf="submitted && f['idCapacidad'].errors" class="invalid-feedback">
+                    <div *ngIf="f['idCapacidad'].errors['required']">Por favor, ingresa el id de la capacidad</div>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <label><label style="color: red;">*</label>Capacidad</label>
+                <input type="text" formControlName="capacidad" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['capacidad'].errors }">
+                <div *ngIf="submitted && f['capacidad'].errors" class="invalid-feedback">
+                    <div *ngIf="f['capacidad'].errors['required']">Por favor, ingresa la capacidad</div>
+                    <div *ngIf="f['capacidad'].errors?.['pattern']">La capacidad debe contener como min 4 caracteres y máximo 50 caracteres</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                class="btn btn-secondary"
+                style="border-radius: 17px"
+                title="Cerrar"
+                (click)="cancelModal()"
+              >
+                <i class="fas fa-ban"></i>
+              </button>
+              <div class="form-group">
+                <button style="border-radius: 17px" class="btn btn-success" title="Guardar" (click)="editarCapacidadEquipo()">
+                  <i class="fad fa-save"></i>
+                </button>  
+              </div>
+            </div>
+        </form>
+    </div>
+</ng-template>

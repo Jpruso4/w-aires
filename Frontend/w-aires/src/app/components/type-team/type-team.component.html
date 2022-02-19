@@ -1,0 +1,150 @@
+<app-navbar-privado></app-navbar-privado>
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <h3><strong>Tipo de Equipos</strong></h3>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4 ml-auto" style="text-align: right;">
+            <button style="align-content: flex-start; margin-bottom: 5px; border-radius: 17px" title="crear tipo de Equipo" class="btn btn-success" (click)="openModalCreate(crearTipoEquipoModal)">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    <table class="table table-striped bg-light mt-2" style="border-radius: 10px;">
+        <thead style="text-align: center;">
+            <th>Id tipo de Equipo</th>
+            <th>Tipo de Equipo</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tipoEquipo of tipoEquipos" style="text-align: center;">
+                <td>{{tipoEquipo.idTipoEquipo}}</td>
+                <td>{{tipoEquipo.tipoEquipo}}</td>
+                <td>
+                    <a>
+                        <button
+                            style="border-radius: 17px; margin: 2px"
+                            type="button"
+                            class="btn btn-warning"
+                            aria-label="Editar"
+                            title="Editar tipo de Equipo"
+                            (click)="openModalEdit(editarTipoEquipoModal, tipoEquipo)"
+                          >
+                            <i class="fas fa-pen"></i>
+                        </button>
+                    </a>
+                    <a>
+                        <button
+                        style="border-radius: 17px; margin: 2px"
+                        type="button"
+                        class="btn btn-danger"
+                        title="Eliminar tipo de Equipo"
+                        (click)="eliminarTipoEquipo(tipoEquipo.idTipoEquipo)"
+                      >
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #crearTipoEquipoModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title"><strong>Crear tipo de Equipo</strong></h5>
+        <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="cancelModal()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <label style="text-align: center; color: red" class="form-text">Todos los campos con (*) son obligatorios.</label>
+    <div class="modal-body">
+        <form [formGroup]="tipoEquipo">
+            <div class="form-group mb-2">
+                <label><label style="color: red">*</label>Id tipo de Equipo</label>
+                <input type="number" formControlName="idTipoEquipo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['idTipoEquipo'].errors }" readonly>
+                <div *ngIf="submitted && f['idTipoEquipo'].errors" class="invalid-feedback">
+                    <div *ngIf="f['idTipoEquipo'].errors['required']">Por favor, ingresa el id del tipo de equipo</div>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <label><label style="color: red;">*</label>Tipo de Equipo</label>
+                <input type="text" formControlName="tipoEquipo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['tipoEquipo'].errors }">
+                <div *ngIf="submitted && f['tipoEquipo'].errors" class="invalid-feedback">
+                    <div *ngIf="f['tipoEquipo'].errors['required']">Por favor, ingresa el tipo de equipo</div>
+                    <div *ngIf="f['tipoEquipo'].errors?.['pattern']">El tipo de equipo debe contener como min 4 caracteres y máximo 50 caracteres</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                class="btn btn-secondary"
+                style="border-radius: 17px"
+                title="Cerrar"
+                (click)="cancelModal()"
+              >
+                <i class="fas fa-ban"></i>
+              </button>
+              <div class="form-group">
+                <button style="border-radius: 17px" class="btn btn-success" title="Guardar" (click)="crearTipoEquipo()">
+                  <i class="fad fa-save"></i>
+                </button>  
+              </div>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #editarTipoEquipoModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title"><strong>Editar tipo de Equipo</strong></h5>
+        <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="cancelModal()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <label style="text-align: center; color: red" class="form-text">Todos los campos con (*) son obligatorios.</label>
+    <div class="modal-body">
+        <form [formGroup]="tipoEquipo">
+            <div class="form-group mb-2">
+                <label><label style="color: red">*</label>Id tipo de Equipo</label>
+                <input type="number" formControlName="idTipoEquipo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['idTipoEquipo'].errors }" readonly>
+                <div *ngIf="submitted && f['idTipoEquipo'].errors" class="invalid-feedback">
+                    <div *ngIf="f['idTipoEquipo'].errors['required']">Por favor, ingresa el id del tipo de equipo</div>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <label><label style="color: red;">*</label>Tipo de Equipo</label>
+                <input type="text" formControlName="tipoEquipo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['tipoEquipo'].errors }">
+                <div *ngIf="submitted && f['tipoEquipo'].errors" class="invalid-feedback">
+                    <div *ngIf="f['tipoEquipo'].errors['required']">Por favor, ingresa el tipo de equipo</div>
+                    <div *ngIf="f['tipoEquipo'].errors?.['pattern']">El tipo de equipo debe contener como min 4 caracteres y máximo 50 caracteres</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                class="btn btn-secondary"
+                style="border-radius: 17px"
+                title="Cerrar"
+                (click)="cancelModal()"
+              >
+                <i class="fas fa-ban"></i>
+              </button>
+              <div class="form-group">
+                <button style="border-radius: 17px" class="btn btn-success" title="Guardar" (click)="editarTipoEquipo()">
+                  <i class="fad fa-save"></i>
+                </button>  
+              </div>
+            </div>
+        </form>
+    </div>
+</ng-template>

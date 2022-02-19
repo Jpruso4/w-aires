@@ -13,6 +13,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { ClientComponent } from './components/client/client.component';
 import { NavbarPrivadoComponent } from './components/navbar-privado/navbar-privado.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
+import { ActivityComponent } from './components/activity/activity.component';
+import { HomePrivComponent } from './components/home-priv/home-priv.component';
+import { CapacidadEquipoComponent } from './components/capacidad-equipo/capacidad-equipo.component';
+import { MarcasComponent } from './components/marcas/marcas.component';
+import { TypeTeamComponent } from './components/type-team/type-team.component';
+import { TipoRefrigeranteComponent } from './components/tipo-refrigerante/tipo-refrigerante.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +29,12 @@ import { EmpleadosComponent } from './components/empleados/empleados.component';
     ClientComponent,
     NavbarPrivadoComponent,
     EmpleadosComponent,
+    ActivityComponent,
+    HomePrivComponent,
+    CapacidadEquipoComponent,
+    MarcasComponent,
+    TypeTeamComponent,
+    TipoRefrigeranteComponent,
   ],
   imports: [
     BrowserModule,

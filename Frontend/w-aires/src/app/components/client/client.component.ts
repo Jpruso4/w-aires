@@ -34,7 +34,7 @@ export class ClientComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.httpClient.get('http://localhost:8090/w-aires/api/client/clients').subscribe(
+    this.httpClient.get('https://w-aires.herokuapp.com/w-aires/api/client/clients').subscribe(
       (response) => {
         this.clients = response
         console.log(this.clients);
@@ -42,14 +42,14 @@ export class ClientComponent implements OnInit {
       (error) => console.log("Error mostrando los clientes: " + error.value)
     );
 
-    this.httpClient.get('http://localhost:8090/w-aires/api/clientType/clientsTypes').subscribe(
+    this.httpClient.get('https://w-aires.herokuapp.com/w-aires/api/clientType/clientsTypes').subscribe(
       (response) => {
         this.typeClients = response
       },
       (error) => console.log("Error mostrando los tipos de cliente: " + error.value)
     );
 
-    this.httpClient.get('http://localhost:8090/w-aires/api/documentType/documentsTypes').subscribe(
+    this.httpClient.get('https://w-aires.herokuapp.com/w-aires/api/documentType/documentsTypes').subscribe(
       (response) => {
         this.typeDocuments = response
       },
@@ -76,7 +76,7 @@ export class ClientComponent implements OnInit {
     if(this.client.invalid){
       return;
     }else{
-      this.httpClient.post('http://localhost:8090/w-aires/api/client/create', this.mapperModeloCliente()).subscribe((response) =>{
+      this.httpClient.post('https://w-aires.herokuapp.com/w-aires/api/client/create', this.mapperModeloCliente()).subscribe((response) =>{
         if(response){
           Swal.fire(
             'Registro con exito',
@@ -97,7 +97,7 @@ export class ClientComponent implements OnInit {
     if(this.client.invalid){
       return;
     }else{
-      this.httpClient.put('http://localhost:8090/w-aires/api/client/modified', this.mapperModeloCliente()
+      this.httpClient.put('https://w-aires.herokuapp.com/w-aires/api/client/modified', this.mapperModeloCliente()
       ).subscribe((response) =>{
         if(response){
           Swal.fire(
@@ -183,7 +183,7 @@ export class ClientComponent implements OnInit {
       denyButtonText: `No`,
     }).then((result) => {
       if (result.isConfirmed) {
-      this.httpClient.delete('http://localhost:8090/w-aires/api/client/delete/'+ numDocumento).subscribe(
+      this.httpClient.delete('https://w-aires.herokuapp.com/w-aires/api/client/delete/'+ numDocumento).subscribe(
         (response) => {
           console.log(response);
           if(response){
